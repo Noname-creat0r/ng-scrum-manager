@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from './layout/header/header.component';
 
 @Component({
     selector: 'app-root',
-    template: '<h1>It is working. {{title}} </h1>',
+    templateUrl: './app.component.html' ,
+    styleUrls: ['../styles.scss'],
     standalone: true,
+    imports: [HeaderComponent]
 })
 export class AppComponent {
   title = 'scrum-manager';
