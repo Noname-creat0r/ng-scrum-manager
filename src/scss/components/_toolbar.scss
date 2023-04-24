@@ -1,0 +1,47 @@
+.navbar {
+  font-family: 'Roboto Mono', monospace;
+  color: $color-black;
+  background-image: linear-gradient(to left bottom, $color-blue, $color-pink);
+  width: 75%;
+  border-radius: 0.8rem;
+  margin: auto;
+  
+  &-icon {
+    display: inline-block;
+    height: $default-icon-height;
+    width: $default-icon-width;
+
+    &-small {
+      height: $small-icon-height;
+      width: $small-icon-width;
+    }
+  }
+
+
+
+
+  &-toggle {
+    position: absolute;
+    border-radius: 100%;
+    padding: 0.7rem;
+    background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);;
+    left: 50%;
+    top: 55%;
+    transition: all 0.2s; 
+    backface-visibility: hidden;
+    border: none;
+
+    &:hover {
+      transform: scale(1.3);
+    }
+    
+    &:active {
+     transform: scale(0.8);
+    }
+  }
+  
+  &-username {
+    text-decoration: none;
+    color: $color-black;
+  }
+}
