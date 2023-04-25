@@ -1,0 +1,13 @@
+.navbar {
+
+  &__toggle--bottom {
+    @extend .navbar__toggle;
+    left: 50%;
+    top: 55%;
+  }
+
+  &__username {
+    text-decoration: none;
+    color: $color-black;
+  }
+}

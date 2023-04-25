@@ -6,27 +6,30 @@
   border-radius: 0.8rem;
   margin: auto;
   
-  &-icon {
+  &__icon {
     display: inline-block;
-    height: $default-icon-height;
-    width: $default-icon-width;
 
-    &-small {
-      height: $small-icon-height;
-      width: $small-icon-width;
+    &--large {
+      height: $large-icon-size;
+      width: $large-icon-size;
+    }
+
+    &--medium {
+      height: $medium-icon-size;
+      width: $medium-icon-size;
+    }
+
+    &--small {
+      height: $small-icon-size;
+      width: $small-icon-size;
     }
   }
 
-
-
-
-  &-toggle {
+  &__toggle {
     position: absolute;
     border-radius: 100%;
     padding: 0.7rem;
-    background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);;
-    left: 50%;
-    top: 55%;
+    background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);
     transition: all 0.2s; 
     backface-visibility: hidden;
     border: none;
@@ -39,9 +42,5 @@
      transform: scale(0.8);
     }
   }
-  
-  &-username {
-    text-decoration: none;
-    color: $color-black;
-  }
+
 }
