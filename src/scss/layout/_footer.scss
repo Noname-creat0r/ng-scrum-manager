@@ -1,0 +1,34 @@
+.navbar {
+
+  &__toggle--top {
+    @extend .navbar__toggle;
+    left: 50%;
+    bottom: 55%;
+  }
+
+  &__tool-panel {
+    display: flex;
+    justify-content: space-between;
+    min-width: 5rem;
+
+    &__item {
+      background: transparent;
+      border: none;
+      transition: all 0.2s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    &__options {
+      @extend .navbar__tool-panel__item;
+      text-decoration: underline;
+
+      &:hover {
+        cursor: context-menu;
+      }
+    }
+  }
+}
+
