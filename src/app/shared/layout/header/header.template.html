@@ -1,15 +1,24 @@
-<nav class="navbar fixed-top">
-  <div class="container-fluid">
-    <a target="_blank" class="navbar-brand" href="#">
-      <img class="navbar__icon--large" src="../../../../assets/icons/letter-a.svg" alt="letter-a">
-      Scrum Master
-    </a>
+<nav class="navbar fixed-top my-1">
+  <div class="container-fluid mx-2">
+    <button class="navbar-brand navbar__tool-panel__item">
+      <img class="navbar__icon--medium" src="../../../../assets/icons/letter-a.svg" alt="letter-a">
+      Scrum Manager
+    </button>
     <button class="navbar__toggle--bottom">
       <img class="navbar__icon--small" src="../../../../assets/icons/arrow-down.svg" alt="arrow">
     </button>
-    <a target="_blank" class="navbar__username" href="#">
+    <button class="navbar__tool-panel__item" (click)="onShowAuthModal()">
       <img class="navbar__icon--medium" src="../../../../assets/icons/user-simple.svg" alt="user-icon">
-      {{username}}
-    </a>
+      {{username || 'Log in'}}
+    </button>
   </div>
+  <app-modal *ngIf="showAuthModal">
+    <h2 title>Authentication</h2>
+    <div body>
+      Auth is working
+    </div>
+    <div footer>
+      <button class="btn">Close</button>
+    </div>
+  </app-modal>
 </nav>
