@@ -6,7 +6,7 @@ import { HeaderComponent, FooterComponent } from './shared/layout';
     templateUrl: './app.component.html' ,
     styleUrls: ['../styles.scss'],
     standalone: true,
-    imports: [HeaderComponent, FooterComponent]
+    imports: [ HeaderComponent, FooterComponent, ]
 })
 export class AppComponent {
   title = 'scrum-manager';
