@@ -1,19 +1,89 @@
-<div class="modal-header">
-   <h1 class="modal-title fs-5" id="staticBackdropLabel">Sign In</h1>
-   <button 
-      type="button" 
-      class="btn-close" 
-      aria-label="Close" 
-      (click)="activeModal.dismiss()">
-   </button>
- </div>
- <div class="modal-body">
-   Auth is working 
- </div>
- <div class="modal-footer">
-   <button 
+<div class="modal-content">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="staticBackdropLabel">Sign In</h1>
+    <button 
+        type="button" 
+        class="btn-close" 
+        aria-label="Close" 
+        (click)="activeModal.dismiss()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="signInForm">
+        <div class="form-floating mb-3">
+          <input 
+            type="text"
+            class="form-control"
+            id="usernameInput"
+            placeholder="username"
+            formControlName="username"
+            required
+            [ngClass]="{
+              'is-invalid': !signInForm.get('username')?.valid 
+                && signInForm.get('username')?.touched,
+              'is-valid': signInForm.get('username')?.valid
+            }">
+          <label for="usernameInput">Username:</label> 
+          <div class="invalid-feedback">
+            Username is required and mustn't be longer then 40 symbols.
+          </div>
+        </div>
+        <div class="form-floating mb-3">
+          <input 
+            type="email"
+            class="form-control"
+            id="emailInput"
+            placeholder="some@email.com"
+            formControlName="email"
+            required
+            [ngClass]="{
+              'is-invalid': !signInForm.get('email')?.valid 
+                && signInForm.get('email')?.touched,
+              'is-valid': signInForm.get('email')?.valid
+            }" >
+          <label for="emailInput">Email:</label>
+          <div class="invalid-feedback">
+            Enter a propper email, please.
+          </div>
+        </div>
+        <div class="form-floating mb-3 has-validation">
+          <input 
+            type="password"
+            class="form-control"
+            id="passwodrInput"
+            placeholder="strong password"
+            formControlName="password"
+            required
+            [ngClass]="{
+              'is-invalid': !signInForm.get('password')?.valid 
+                && signInForm.get('password')?.touched,
+              'is-valid': signInForm.get('password')?.valid
+            }">
+          <label for="passwordInput">Password:</label>
+          <div class="invalid-feedback">
+            Password must be 8-30 chars long.
+          </div>
+        </div>
+
+        <span class="signin__redirect-text">
+          If you new here, then you can 
+          <a href="#" target="_blank"> Sign Up here.</a>
+        </span>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!signInForm.valid"
+      (click)="onSubmit()">
+      Sign In
+    </button>
+    <button 
       type="button" 
       class="btn btn-secondary" 
-      (click)="activeModal.close()">Close</button>
-   <button type="button" class="btn btn-primary">Sign In</button>
- </div>
+      (click)="activeModal.close()">
+      Close
+    </button>
+  </div>
+</div>

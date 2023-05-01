@@ -17,7 +17,7 @@ export class HeaderComponent {
   constructor(private modalService: NgbModal) { }
 
   showSignInModal() {
-    this.modalService.open(SignInComponent)
+    this.modalService.open(SignInComponent, { size: 'sm' })
   }
 
 }
