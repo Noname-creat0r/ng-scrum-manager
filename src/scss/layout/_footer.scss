@@ -1,11 +1,4 @@
-.navbar {
-
-  &__toggle--top {
-    @extend .navbar__toggle;
-    left: 50%;
-    bottom: 55%;
-  }
-
+.navbar { 
   &__tool-panel {
 
     &__options {
@@ -19,3 +12,11 @@
   }
 }
 
+.navbar-toggle {
+  &--bottom-bar {
+    @extend .navbar-toggle;
+    left: 50%;
+    bottom: calc($toolbar-height - .7rem);
+    z-index: 1035;
+  }
+}

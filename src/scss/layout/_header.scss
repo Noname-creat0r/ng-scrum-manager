@@ -1,9 +1,8 @@
-.navbar {
-
-  &__toggle--bottom {
-    @extend .navbar__toggle;
+.navbar-toggle {
+  &--top-bar {
+    @extend .navbar-toggle;
     left: 50%;
-    top: 55%;
+    top: calc($toolbar-height - .7rem);
+    z-index: 1035;
   }
-
 }

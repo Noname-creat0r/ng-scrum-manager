@@ -1,4 +1,10 @@
-<nav class="navbar fixed-bottom my-1">
+<nav
+    class="navbar fixed-bottom my-1"
+    (click)="onToggleToolbar()" 
+    [ngClass]="{
+        'slideOutToolbar--bottom': state === 'hidden',
+        'slideInToolbar--bottom': state === 'shown'
+    }">
     <div class="container-fluid">
         <div class="navbar__tool-panel">
             <button class="navbar__tool-panel__item">
@@ -10,10 +16,7 @@
                      src="../../../../assets/icons/eye.svg" alt="eye">
             </button>
 
-        </div>
-        <button class="navbar__toggle--top">
-            <img class="navbar__icon--small" src="../../../../assets/icons/arrow-down.svg" alt="arrow">
-        </button>
+        </div> 
 
         <div class="navbar__tool-panel">
             <input class="form-control form-control-sm"  type="text">
@@ -25,3 +28,12 @@
         </div>
     </div>
 </nav>
+<button 
+    class="navbar-toggle--bottom-bar"
+    (click)="onToggleToolbar()"
+    [ngClass]="{
+        'slideOutButton--bottom': state === 'hidden',
+        'slideInButton--bottom': state === 'shown'
+    }" >
+    <img class="navbar__icon--small" src="../../../../assets/icons/arrow-down.svg" alt="arrow">
+</button>

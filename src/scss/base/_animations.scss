@@ -1,0 +1,40 @@
+@keyframes slideOutYTop {
+   0% { transform: translateY(0); }
+   100% { transform: translateY(-$slideYheight); }
+}
+
+@keyframes slideInYTop {
+   0% { transform: translateY(-$slideYheight); }
+   100% { transform: translateY(0); }
+}
+
+@keyframes slideOutYBottom {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(+$slideYheight); }
+}
+
+@keyframes slideInYBottom {
+  0% { transform: translateY($slideYheight); }
+  100% { transform: translateY(0); }
+}
+
+.slideOutToolbar {
+  &--top { animation: slideOutYTop .5s linear 1 normal forwards; } 
+  &--bottom { animation: slideOutYBottom .5s linear 1 normal forwards; }
+}
+
+.slideInToolbar {
+  &--top { animation: slideInYTop .3s linear 1 normal backwards; }
+  &--bottom { animation: slideInYBottom .3s linear 1 normal backwards; }
+}
+
+.slideInButton {
+  &--top { animation: slideInYTop .3s linear 1 normal backwards; }
+  &--bottom { animation: slideInYBottom .3s linear 1 normal backwards; }
+}
+
+.slideOutButton {
+  &--top { animation: slideOutYTop .5s linear 1 normal forwards;}
+  &--bottom { animation: slideOutYBottom .5s linear 1 normal forwards; }
+}
+

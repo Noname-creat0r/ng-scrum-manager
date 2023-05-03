@@ -41,24 +41,23 @@
       height: $small-icon-size;
       width: $small-icon-size;
     }
+  } 
+}
+
+.navbar-toggle {
+  position: absolute;
+  border-radius: 100%;
+  padding: 0.7rem;
+  background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);
+  transition: all 0.2s;
+  backface-visibility: hidden;
+  border: none;
+
+  &:hover {
+    transform: scale(1.3);
   }
-
-  &__toggle {
-    position: absolute;
-    border-radius: 100%;
-    padding: 0.7rem;
-    background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);
-    transition: all 0.2s;
-    backface-visibility: hidden;
-    border: none;
-
-    &:hover {
-      transform: scale(1.3);
-    }
-    
-    &:active {
-     transform: scale(0.8);
-    }
+  
+  &:active {
+    transform: scale(0.8);
   }
-
 }

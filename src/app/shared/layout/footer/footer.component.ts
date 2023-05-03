@@ -8,5 +8,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class FooterComponent {
+  state: string = 'shown';
 
+  onToggleToolbar() {
+    this.state = this.state === 'shown' ? 'hidden' : 'shown'
+  } 
 }
