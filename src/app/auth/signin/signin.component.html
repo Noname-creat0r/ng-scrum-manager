@@ -9,25 +9,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="signInForm">
-        <div class="form-floating mb-3">
-          <input 
-            type="text"
-            class="form-control"
-            id="usernameInput"
-            placeholder="username"
-            formControlName="username"
-            required
-            [ngClass]="{
-              'is-invalid': !signInForm.get('username')?.valid 
-                && signInForm.get('username')?.touched,
-              'is-valid': signInForm.get('username')?.valid
-            }">
-          <label for="usernameInput">Username:</label> 
-          <div class="invalid-feedback">
-            Username is required and mustn't be longer then 40 symbols.
-          </div>
-        </div>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
         <div class="form-floating mb-3">
           <input 
             type="email"
@@ -67,7 +49,11 @@
 
         <span class="signin__redirect-text">
           If you new here, then you can 
-          <a href="#" target="_blank"> Sign Up here.</a>
+          <a 
+            [routerLink]="authRoutes.signup" 
+            (click)="activeModal.close()">
+             Sign Up here.
+          </a>
         </span>
     </form>
   </div>
@@ -75,8 +61,7 @@
     <button
       type="submit"
       class="btn btn-success"
-      [disabled]="!signInForm.valid"
-      (click)="onSubmit()">
+      [disabled]="!signInForm.valid">
       Sign In
     </button>
     <button 

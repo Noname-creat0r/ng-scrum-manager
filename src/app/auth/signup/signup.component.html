@@ -1,0 +1,96 @@
+<div class="position-absolute top-50 start-50 translate-middle">
+   <h2 class="display-5 ">Welcome!</h2>
+   <p>Please, sign in your data in the form below and press the 
+      <b class="text-bg-success rounded mx-1 p-1"> Submit </b> button </p>
+   <hr class="my-4">
+   <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div class="input-group mb-3">
+         <span class="input-group-text">
+            <img 
+               class="navbar__icon--small"
+               src="../../../assets/icons/chat-left-quote.svg" 
+               alt="chat-quote-icon">
+         </span>
+         <div class="form-floating">
+            <input 
+               type="text"
+               class="form-control"
+               id="usernameInput"
+               placeholder="username"
+               formControlName="username"
+               required
+               [ngClass]="{
+                  'is-invalid': !signUpForm.get('username')?.valid 
+                     && signUpForm.get('username')?.touched,
+                  'is-valid': signUpForm.get('username')?.valid
+               }" >
+            <label for="usernameInput">Username:</label> 
+         </div>
+        <div class="invalid-feedback">
+            Username is required and mustn't be longer then 40 symbols.
+         </div> 
+      </div>
+      <div class="input-group mb-3">
+         <span class="input-group-text">
+            <img 
+               src="../../../assets/icons/envelope-at.svg" 
+               alt="email-letter-icon" 
+               class="navbar__icon--small">
+         </span>
+         <div class="form-floating">
+            <input 
+               type="email"
+               class="form-control"
+               id="emailInput"
+               placeholder="some@email.com"
+               formControlName="email"
+               required
+               [ngClass]="{
+                  'is-invalid': !signUpForm.get('email')?.valid 
+                     && signUpForm.get('email')?.touched,
+                  'is-valid': signUpForm.get('email')?.valid
+               }"  >
+            <label for="emailInput">Email:</label>
+         </div>
+      </div>
+      <p class="text-danger" 
+         *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.errors">
+         Enter a propper email, please.
+      </p>
+      <div class="input-group"> 
+         <span class="input-group-text">
+            <img 
+               src="../../../assets/icons/key.svg"
+               alt="key-icon" 
+               class="navbar__icon--small">
+         </span> 
+         <div class="form-floating">
+            <input 
+               type="password"
+               class="form-control"
+               id="passwodrInput"
+               placeholder="strong password"
+               formControlName="password"
+               required
+               [ngClass]="{
+                  'is-invalid': !signUpForm.get('password')?.valid 
+                     && signUpForm.get('password')?.touched,
+                  'is-valid': signUpForm.get('password')?.valid
+               }"  >
+            <label for="passwordInput">Password:</label>
+            <div class="invalid-feedback">
+            </div>
+         </div>
+      </div>
+      <p class="text-danger mt-3" 
+         *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.errors">
+         Password should be at least 8 chars long.  
+      </p>
+      <hr class="my-4">
+      <footer class="text-center">
+         <button 
+            type="submit"
+            class="btn btn-outline-success btn-lg">Submit</button>
+      </footer>
+   </form>
+</div>
