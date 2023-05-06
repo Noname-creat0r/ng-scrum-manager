@@ -1,14 +1,30 @@
+//Core
 import { provideRouter } from '@angular/router';
 import { bootstrapApplication } from '@angular/platform-browser';
+//NgRx
+import { provideState, provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
+//Components
 import { AppComponent } from './app/app.component';
 import { NotFoundComponent } from './app/shared/components/errors/not-found/not-found.component';
 
+//Features - Reducers
+import { authFeature } from './app/auth/store/auth.reducer';
+
+//Paths
 import { appPaths } from './app/app.routes';
-import { AUTH_ROUTES, authPaths } from './app/auth/auth.routes';
+import { authPaths } from './app/auth/auth.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideStore(),
+    provideStoreDevtools({
+      maxAge: 25,
+      trace: true,
+      traceLimit: 75,
+    }),
+    provideState(authFeature),
     provideRouter([
       {
         path: authPaths.base,
