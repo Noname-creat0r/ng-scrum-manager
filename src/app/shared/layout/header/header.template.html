@@ -7,12 +7,13 @@
   <div class="container-fluid mx-2">
     <button class="navbar-brand navbar__tool-panel__item">
       <img 
-        class="navbar__icon--large" 
+        class="navbar__icon--large"   
         src="../../../../assets/images/a-logo-transparent.png" alt="logo-letter-a">
       Scrum Manager
     </button>
     
-    <button 
+    <button
+      *ngIf="!(isAuth$ | async); else isAuth" 
       class="navbar__tool-panel__item" 
       (click)="onShowSignInModal()">
       <img 
@@ -20,6 +21,16 @@
         src="../../../../assets/icons/user-simple.svg" alt="user-icon">
       {{username || 'Log in'}}
     </button>
+    <ng-template #isAuth>
+      <button
+        class="navbar__tool-panel__item"
+        (click)="onShowLogoutDialog()">
+        <img 
+          class="navbar__icon--medium"
+          src="../../../../assets/icons/box-arrow-left.svg" alt="box-arrow-left"/>
+        Logout
+      </button>
+    </ng-template>
   </div>
 </nav>
 <button 
