@@ -1,6 +1,19 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h1 class="modal-title fs-5" id="staticBackdropLabel">Sign In</h1>
+    <h1 
+      class="modal-title fs-5" 
+      id="staticBackdropLabel"
+      *ngIf="!(isLoading$ | async); else loadingHeader">
+      Sign In
+    </h1>
+    <ng-template #loadingHeader>
+      Signing in 
+      <img 
+        class="nabar__icon--small"
+        width="20rem"
+        height="20rem"
+        src="../../../assets/animated/double-ring-1s-197px.svg">
+    </ng-template>
     <button 
         type="button" 
         class="btn-close" 
@@ -9,7 +22,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="signInForm"
+      (ngSubmit)="onSubmit()">
         <div class="form-floating mb-3">
           <input 
             type="email"
@@ -27,7 +42,7 @@
           <div class="invalid-feedback">
             Enter a propper email, please.
           </div>
-        </div>
+        </div> 
         <div class="form-floating mb-3 has-validation">
           <input 
             type="password"
@@ -61,6 +76,7 @@
     <button
       type="submit"
       class="btn btn-success"
+      (click)="onSubmit()"
       [disabled]="!signInForm.valid">
       Sign In
     </button>

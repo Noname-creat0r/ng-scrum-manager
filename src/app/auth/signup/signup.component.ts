@@ -1,6 +1,7 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
    selector: 'app-signup',
@@ -10,9 +11,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 
 export class SignUpComponent implements OnInit {
-   signUpForm!: FormGroup;
+  signUpForm!: FormGroup;
 
-   constructor() { }
+  constructor(private authService: AuthService) {}
 
    ngOnInit() {
       this.signUpForm = new FormGroup({ 
@@ -24,10 +25,19 @@ export class SignUpComponent implements OnInit {
             Validators.maxLength(30)
          ]),
       });
+   }
   
-   }
+  getFormValues() : { name: string, email: string, password: string} {
+    return {
+      name: this.signUpForm.get('username')?.value,
+      email: this.signUpForm.get('email')?.value,
+      password: this.signUpForm.get('password')?.value
+    };
+  }
 
-   onSubmit() {
 
-   }
+  onSubmit() {
+    this.authService.signup(this.getFormValues());
+    console.log(this.getFormValues());
+  }
 }

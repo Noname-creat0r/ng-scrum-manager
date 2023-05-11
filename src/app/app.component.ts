@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router,  } from '@angular/router';
 import { HeaderComponent, FooterComponent } from './shared/layout';
 
 @Component({
@@ -10,5 +10,7 @@ import { HeaderComponent, FooterComponent } from './shared/layout';
     imports: [ HeaderComponent, RouterOutlet, FooterComponent, ]
 })
 export class AppComponent {
-  title = 'scrum-manager';
+   title = 'scrum-manager';
+
+
 }
