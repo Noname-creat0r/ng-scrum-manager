@@ -1,0 +1,29 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="staticBackdropLabel">Logout</h1>
+    <button 
+        type="button" 
+        class="btn-close" 
+        aria-label="Close" 
+        (click)="activeModal.dismiss()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5> Are you sure you want to quit your current session ? </h5>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="onLogout()">
+      Yes
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-secondary" 
+      (click)="activeModal.close()">
+      Cancel
+    </button>
+  </div>
+</div>
+
