@@ -1,0 +1,27 @@
+.project-card {
+  width: 20rem;
+  display: inline-block;
+  margin: 0 2rem;
+  box-shadow: 6px 3px 3px $color-pink;  
+  transition: ease-out .2s all;
+
+  &__header {
+    background-image: linear-gradient(to left top, $color-blue, $color-pink);
+  }
+
+  &__body {
+    background-image: linear-gradient(to bottom right, $color-soft-red, white);
+    height: 5rem;
+    overflow: scroll;
+
+  }
+
+  &__footer {
+    height: max-content;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    box-shadow: 2px 1px 1px $color-soft-red; 
+  }
+}

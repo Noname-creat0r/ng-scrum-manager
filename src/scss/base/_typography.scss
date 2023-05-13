@@ -1,0 +1,16 @@
+.header-primary {
+  color: transparent;
+  background-image: linear-gradient(to top, $color-pink, $color-blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: all .4s;
+  
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+
+  &:hover {
+    text-shadow: .5rem 1rem 1rem rgba($color-black, .2);
+    background-image: linear-gradient(to bottom right, $color-pink, $color-blue);
+  }
+
+}
