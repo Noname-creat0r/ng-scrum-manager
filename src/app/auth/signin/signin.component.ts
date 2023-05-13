@@ -43,8 +43,5 @@ export class SignInComponent implements OnInit {
       email: this.signInForm.get('email')?.value,
       password: this.signInForm.get('password')?.value
     }))
-    setTimeout(() => this.store.dispatch(SignInActions.succeeded({ token: '1234', userId: 'NewUser'} )), 2000)
-  
   }
- 
 }

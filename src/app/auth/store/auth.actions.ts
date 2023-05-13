@@ -1,10 +1,11 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
+import { AuthSuccess, SignInModel, SignUpModel } from "../auth.model";
 
  export const SignInActions = createActionGroup({
   source: 'Sign In',
   events: {
-    'Initialized' :props<{ email: string, password: string }>(),
-    'Succeeded' : props<{ token: string, userId: string }>(),
+    'Initialized' :props<SignInModel>(),
+    'Succeeded' : props<AuthSuccess>(),
     'Failed' : props<{ error: string }>(), 
     'Reauth' : emptyProps(),
     'Logout' : emptyProps()   
@@ -14,7 +15,7 @@ import { createActionGroup, emptyProps, props } from "@ngrx/store";
 export const SignUpActions = createActionGroup({
   source: 'Sign Up',
   events: {
-    'Initialized' : props<{ email: string, password: string, username: string}>(),
+    'Initialized' : props<SignUpModel>(),
     'Failed' : props<{ error: string }>(),
     'Succeeded' : emptyProps() , 
   }

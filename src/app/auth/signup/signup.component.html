@@ -19,6 +19,7 @@
                placeholder="username"
                formControlName="username"
                required
+               ng-disabled="(isLoading$ | async) ? true : false"
                [ngClass]="{
                   'is-invalid': !signUpForm.get('username')?.valid 
                      && signUpForm.get('username')?.touched,
@@ -45,6 +46,7 @@
                placeholder="some@email.com"
                formControlName="email"
                required
+               [attr.disabled]="(isLoading$ | async) ? true : false"
                [ngClass]="{
                   'is-invalid': !signUpForm.get('email')?.valid 
                      && signUpForm.get('email')?.touched,

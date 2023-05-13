@@ -1,7 +1,12 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+
+import { SignUpActions } from '../store/auth.actions';
+import { selectLoading } from '../store/auth.reducer';
 import { AuthService } from '../auth.service';
+
 
 @Component({
    selector: 'app-signup',
@@ -12,8 +17,12 @@ import { AuthService } from '../auth.service';
 
 export class SignUpComponent implements OnInit {
   signUpForm!: FormGroup;
+  isLoading$ = this.store.select(selectLoading);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private readonly store: Store 
+  ) {}
 
    ngOnInit() {
       this.signUpForm = new FormGroup({ 
@@ -37,7 +46,10 @@ export class SignUpComponent implements OnInit {
 
 
   onSubmit() {
-    this.authService.signup(this.getFormValues());
-    console.log(this.getFormValues());
+    this.store.dispatch(SignUpActions.initialized({
+      email: this.signUpForm.get('email')?.value,
+      password: this.signUpForm.get('password')?.value,
+      name: this.signUpForm.get('username')?.value
+    }));  
   }
 }
