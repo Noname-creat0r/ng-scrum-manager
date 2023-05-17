@@ -1,10 +1,13 @@
 .navbar {
   color: $color-black;
   background-image: linear-gradient(to left bottom, $color-blue, $color-pink);
+  box-shadow: .5rem 1rem 1rem rgba($color-pink, .2); 
+
   width: 75%;
   height: $toolbar-height;
   border-radius: 0.8rem;
   margin: auto;
+  
 
   &__tool-panel {
     display: flex;
@@ -44,7 +47,7 @@
 }
 
 .navbar-toggle {
-  position: absolute;
+  position: fixed;
   border-radius: 100%;
   padding: 0.7rem;
   background-image: linear-gradient(to right bottom, $color-blue, $color-soft-red);
