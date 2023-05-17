@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { Store } from '@ngrx/store';
+
+import { selectProjects } from '../project/store/project.reducer';
+import { LoadingProjectsActions } from '../project/store/project.actions';
 
 @Component({
   selector: 'app-home',
@@ -7,25 +12,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
-  projects = [
-    {
-      title: 'hellnaw',
-      description: 'lol',
-      id: '#ad12dad',
-      tags: [ { type: 'bg-warning', text: 'important' }, { type: 'bg-primary', text: 'main'} ]
-    },
-    {
-      title: 'hellnaw',
-      description: 'lol',
-      id: '#ad12dad',
-      tags: []
-    },
-    {
-      title: 'hellnaw',
-      description: 'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatatdawdawdawddddddddddddddddddddddddddddddddddddddddddddddddddddddd adw.',
-      id: '#ad12dad',
-      tags: []
-    }
-  ] 
+export class HomeComponent implements OnInit {
+  projects$ = this.store.select(selectProjects);
+
+  constructor(private readonly store: Store) {}
+
+  ngOnInit() {
+    this.store.dispatch(LoadingProjectsActions.initialized({ userId: undefined }))
+  }  
 }

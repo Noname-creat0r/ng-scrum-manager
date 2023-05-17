@@ -3,7 +3,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 
-import { SignInComponent } from '../../../auth/index';
+import { SignInComponent } from '../../../auth/signin/signin.component';
 import { LogoutComponent } from 'src/app/auth/logout/logout.component';
 import { selectIsAuthenticated } from 'src/app/auth/store/auth.reducer';
 
