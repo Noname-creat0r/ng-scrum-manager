@@ -1,5 +1,5 @@
 export const appPaths = {
-   home: '',
+   home: '/home',
    notFound: '404',
 }
 

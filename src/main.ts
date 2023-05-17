@@ -1,21 +1,48 @@
 //Core
-import { provideRouter } from '@angular/router';
+import { provideRouter, Routes } from '@angular/router';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 //NgRx
-import { provideState, provideStore } from '@ngrx/store';
+import { ActionReducerMap, provideState, provideStore, RootStoreConfig } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 //Components
 import { AppComponent } from './app/app.component';
 import { NotFoundComponent } from './app/shared/components/errors/not-found/not-found.component';
-import { HomeComponent } from './app/home/home.component';
-//Features - Reducers - Effects
+//NgRx Features
 import { authFeature } from './app/auth/store/auth.reducer';
+import { projectFeature } from './app/project/store/project.reducer';
+//NgRx Effectns
 import { AuthEffects } from './app/auth/store/auth.effects';
+import { ProjectEffects } from './app/project/store/project.effects'; 
 //Paths
 import { appPaths } from './app/app.routes';
 import { authPaths } from './app/auth/auth.routes';
+import { homePaths } from './app/home/home.routes';
+import { HomeComponent } from './app/home/home.component';
+
+
+const reducers: ActionReducerMap<any> = {
+  auth: authFeature.reducer,
+  project: projectFeature.reducer
+} 
+
+const appRoutes: Routes = [
+  {
+    path: homePaths.base,
+    component: HomeComponent,
+    providers: [
+      provideState(projectFeature),
+      provideEffects(ProjectEffects),
+    ]
+  },
+  {
+    path: authPaths.base,
+    loadChildren: () => import('./app/auth/auth.routes').then(mod => mod.AUTH_ROUTES),
+  },
+  { path: appPaths.notFound, component: NotFoundComponent },
+  { path: "**", redirectTo: appPaths.notFound }
+]
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -28,17 +55,7 @@ bootstrapApplication(AppComponent, {
       traceLimit: 75,
     }),
     provideState(authFeature),
-    provideRouter([
-      {
-        path: appPaths.home,
-        component: HomeComponent
-      },
-      {
-        path: authPaths.base,
-        loadChildren: () => import('./app/auth/auth.routes').then(mod => mod.AUTH_ROUTES)
-      },
-      { path: appPaths.notFound, component: NotFoundComponent },
-      { path: "**", redirectTo: appPaths.notFound }
-  ])]
+    provideRouter(appRoutes),
+  ]
 })
   .catch(err => console.error(err));
