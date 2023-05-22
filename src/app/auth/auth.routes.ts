@@ -11,8 +11,8 @@ export const authPaths = {
 }
 
 export const authRoutes = {
-   signup: `/${authPaths.base}/${authPaths.signup}`,
-   logout: `/${authPaths.base}/${authPaths.logout}`, 
+   signup: `${authPaths.base}/${authPaths.signup}`,
+   logout: `${authPaths.base}/${authPaths.logout}`, 
 }
 
 export const AUTH_ROUTES: Routes = [
