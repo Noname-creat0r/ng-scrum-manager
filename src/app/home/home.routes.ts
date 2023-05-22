@@ -6,12 +6,9 @@ import { appPaths } from "../app.routes";
 
 export const homePaths = {
   base: 'home',
-  projects:'projects',
 }
 
-export const homeRoutes = {
-   projects: `/${homePaths.base}/${homePaths.projects}`,
-}
+export const homeRoutes = { }
 
 export const HOME_ROUTES: Routes = [
    { path: homePaths.base, component: HomeComponent },
