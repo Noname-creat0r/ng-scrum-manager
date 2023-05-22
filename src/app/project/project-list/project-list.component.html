@@ -1,0 +1,6 @@
+<div class="container">
+  <h1 class="display-3 header-primary">Projects</h1>  
+  <project-item 
+    *ngFor="let project of (projects$ | async)"
+    [project]="project"/> 
+</div>

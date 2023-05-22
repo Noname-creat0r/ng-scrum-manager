@@ -1,0 +1,18 @@
+<div 
+  class="card project-card my-2"
+  [routerLink]="project.id.toString()"> 
+  <div class="card-header project-card__header">
+    #{{ project.id }} - {{ project.title }}
+  </div>
+  <div class="card-body project-card__body">
+    <p>{{ project.description }}</p>      
+  </div>
+  <div class="card-footer project-card__footer">
+    <span 
+      class="badge rounded-pill text-dark mx-1"
+      *ngFor="let tag of project.tags">
+        #{{ tag.title }}
+    </span>
+  </div>
+</div>
+
