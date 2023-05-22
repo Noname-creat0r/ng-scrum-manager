@@ -8,9 +8,31 @@
   margin-bottom: 2rem;
   margin-left: 2rem;
 
+  text-decoration: none;
+
+
   &:hover {
     text-shadow: .5rem 1rem 1rem rgba($color-black, .2);
-    background-image: linear-gradient(to bottom right, $color-pink, $color-blue);
+    transform: scaleX(1.1);    
+  }
+}
+
+.project {
+  font-size: 1.2rem;
+
+  &__description {
+    text-indent: 4rem;
+  }
+
+  &__tabs {
+    color: $color-pink;
+  
+
+    &__tab {
+      font-size: 1.3rem;
+         
+    }
+
   }
 
 }

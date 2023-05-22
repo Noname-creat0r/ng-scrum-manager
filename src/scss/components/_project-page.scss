@@ -1,0 +1,50 @@
+.project {
+
+  &__title-bar {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+
+  &__tag-bar {
+    
+    &__tag {
+
+    }
+  }
+
+  &__description {
+    width: 85%;
+    margin: 2rem auto;
+  }
+
+  &__tabs {
+    width: 85%;
+    margin: 2rem auto;
+
+    &__tab {
+    }
+  }
+
+  &__board {
+    display: flex;
+    justify-content: space-around;
+
+    &__container {
+      margin: 0 2rem;
+      text-align: center;
+      width: 25rem;
+
+      &__item {
+        text-align: inherit;
+        padding: 1rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        cursor: move;
+        margin: .7rem 0;
+      }
+      
+    }
+  
+  }
+}
