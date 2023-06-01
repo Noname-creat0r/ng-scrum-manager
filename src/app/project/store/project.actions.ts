@@ -18,3 +18,10 @@ export const LoadingProjectActions = createActionGroup({
     'Failed': props<{ error : string}>()
   }
 });
+
+export const ProjectActions = createActionGroup({
+  source: 'Project',
+  events: {
+    'Selected': props<{ projectId: number }>(),
+  }
+}); 

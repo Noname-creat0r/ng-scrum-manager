@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
 import { appPaths } from "src/app/app.routes";
-import { HomeComponent } from "../home/home.component";
 
 export const projectPaths = {
   base: 'projects',

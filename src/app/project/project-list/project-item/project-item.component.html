@@ -1,6 +1,7 @@
 <div 
   class="card project-card my-2"
-  [routerLink]="project.id.toString()"> 
+  [routerLink]="[project.id]" 
+  (click)="onOpenProjectItem(project.id)"> 
   <div class="card-header project-card__header">
     #{{ project.id }} - {{ project.title }}
   </div>
