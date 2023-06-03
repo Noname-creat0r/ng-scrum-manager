@@ -6,3 +6,17 @@ body {
   font-family: 'Roboto Mono', monospace;
   background-color: #FAFAFA;
 }
+
+.popover {
+  cursor: pointer;
+}
+
+.cdk-drag-preview {
+  padding: 1rem;
+  outline: 1px solid $color-black;
+  opacity: 0.9;
+  font-size: 1.1rem;
+  width: 25%;
+}
+
+

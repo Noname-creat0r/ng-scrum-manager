@@ -7,9 +7,10 @@
   }
 
   &__tag-bar {
+    text-align: center;
     
     &__tag {
-
+      margin: .2rem;
     }
   }
 
@@ -42,6 +43,29 @@
         border-radius: 5px;
         cursor: move;
         margin: .7rem 0;
+        
+        &__options-toggle {
+          
+          &:hover {
+            outline: 1px solid $color-black;
+            border-radius: 3px;
+            box-shadow: 3px 3px 1px $color-pink;
+          }
+
+        }
+
+        &__options {
+          display: flex;
+          justify-content: space-around;
+          transition: all .2s;
+
+          &__option { 
+              
+            &:hover {
+              transform: scale(1.2)  
+            }
+          }
+        }
       }
       
     }
