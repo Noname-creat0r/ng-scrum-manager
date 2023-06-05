@@ -3,17 +3,19 @@
 
     <div class="project__title-bar">
       <h1> {{ (project$ | async)?.title }}</h1>
-      <figure class="figure">
+      <figure class="figure text-center">
         <img 
-          class="figure-img img-fluid rounded navbar__icon--large "
+          class="figure-img img-fluid rounded navbar__icon--large"
           src="../../../assets/icons/user-simple.svg"
           alt="UserIcon">
-        <figcaption class="figure-caption text-center">{{ (project$ | async)?.author?.name}}</figcaption>
+        <figcaption class="figure-caption ">{{ (project$ | async)?.author?.name}}</figcaption>
       </figure>
     </div>
 
     <div class="project__tag-bar">
-      <span class="project__tag-bar__tag" *ngFor="let tag of (project$ | async)?.tags">
+      <span 
+        class="project__tag-bar__tag" 
+        *ngFor="let tag of (project$ | async)?.tags">
         #{{tag.title}}
       </span>
     </div>
@@ -30,31 +32,10 @@
         <a href="" class="nav-link">Iterations</a>
       </li>
     </ul>
-    
-    <div
-      cdkDropListGroup
-      class="project__board">
-      <div
-        class="project__board__container"
-        *ngFor="let container of boardContainers">
-        <h3>{{container.title}}</h3>
-        <hr/>
-        <div
-          cdkDropList
-          [cdkDropListData]="container.data"
-          (cdkDropListDropped)="drop($event)">
-          <div 
-            class="project__board__container__item" 
-            *ngFor="let item of container.data"
-            [cdkDragDisabled]="item.disabled"
-            cdkDrag>
-            {{item.content}}
-          </div>  
-        </div>
-
-      </div>
-  
-    </div>
+ 
+    <task-board 
+      [tasks]="tasks$ | async"
+      [isLoading]="isLoadingTasks$ | async"/> 
       
   </div>
 </div>

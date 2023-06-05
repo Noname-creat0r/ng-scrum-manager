@@ -5,7 +5,7 @@ import { getStorageItem, setStorageItem } from "src/app/shared/utils/storage/loc
 
 interface State {
   projects: Array<ProjectModel>,
-  currentProjectId: string | null,
+  currentProjectId: string | undefined,
   loading: boolean;
   error: string | null;
 };
@@ -48,7 +48,7 @@ export const projectFeature = createFeature({
 
 export const selectProject = () => 
   createSelector(selectProjectState, (state) => {
-    return state.projects.find(project => project.id === parseInt(state.currentProjectId !== null ? state.currentProjectId : '' ))
+    return state.projects.find(project => project.id === parseInt(state.currentProjectId !== undefined ? state.currentProjectId : '' ))
   })
 
 export const selectUserProjects = (userId: number) => 
