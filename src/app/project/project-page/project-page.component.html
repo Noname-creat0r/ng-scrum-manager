@@ -34,7 +34,7 @@
     </ul>
  
     <task-board 
-      [tasks]="tasks$ | async"
+      [tasksObs]="tasks$"
       [isLoading]="isLoadingTasks$ | async"/> 
       
   </div>

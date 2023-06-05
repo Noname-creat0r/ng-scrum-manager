@@ -6,6 +6,7 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { TaskModel, TaskDisplayContainer } from '../task.model';
 
 import { TaskListComponent } from './task-list/task-list.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'task-board',
@@ -14,8 +15,8 @@ import { TaskListComponent } from './task-list/task-list.component';
   templateUrl: 'task-board.component.html'
 })
 export class TaskBoardComponent {
-  @Input() tasks: Array<TaskModel> | null = [] 
   @Input() isLoading: boolean | null = false
+  @Input() tasksObs!: Observable<Array<TaskModel>>
 
   boardContainers: Array<TaskDisplayContainer> = [
     {
@@ -33,22 +34,25 @@ export class TaskBoardComponent {
   ]
 
   ngOnInit() {
-    if (this.tasks?.length) {
-      const titles = this.boardContainers.map(container => container.title)
+    this.tasksObs.subscribe(tasks => {
+      if (tasks.length) {
+        const titles = this.boardContainers.map(container => container.title)
 
-      for (const title of titles) {       
-        const containerData: Array<{ disabled: boolean, content: TaskModel }> = 
-          this.tasks
-            .filter(task => task.status.status === title)
-            .map(task => ({
-              disabled: false,
-              content: task
-            }) )
-      
-        const cid = this.boardContainers.findIndex(container => container.title === title) 
-        this.boardContainers[cid].data = containerData;  
+        for (const title of titles) {       
+          const containerData: Array<{ disabled: boolean, content: TaskModel }> = 
+            tasks
+              .filter(task => task.status.status === title)
+              .map(task => ({
+                disabled: false,
+                content: task
+              }) )
+        
+          const cid = this.boardContainers.findIndex(container => container.title === title) 
+          this.boardContainers[cid].data = containerData;  
+        }
       }
-    }   
+
+    })
   }
 
   ngOnDestroy() {}
