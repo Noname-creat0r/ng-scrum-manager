@@ -19,25 +19,31 @@ import { ProjectEffects } from './app/project/store/project.effects';
 import { appPaths } from './app/app.routes';
 import { authPaths } from './app/auth/auth.routes';
 import { homePaths } from './app/home/home.routes';
-import { HomeComponent } from './app/home/home.component';
+import { projectPaths } from './app/project/project.routes';
+import { taskFeature } from './app/task/store/task.reducer';
+import { TaskEffects } from './app/task/store/task.effects';
 
-
-const reducers: ActionReducerMap<any> = {
-  auth: authFeature.reducer,
-  project: projectFeature.reducer
-} 
+// const reducers: ActionReducerMap<any> = {
+//   auth: authFeature.reducer,
+//   project: projectFeature.reducer
+// } 
 
 const appRoutes: Routes = [
   {
-    path: homePaths.base,
-    component: HomeComponent,
+    path: 'home',
+    loadComponent: () => import('./app/home/home.component')
+      .then(mod => mod.HomeComponent),
+  },
+  { 
+    path: projectPaths.base,
     providers: [
-      provideState(projectFeature),
-      provideEffects(ProjectEffects),
-    ]
+      provideState(projectFeature), provideState(taskFeature),
+      provideEffects(ProjectEffects, TaskEffects),
+    ],
+    loadChildren: () => import('./app/project/project.routes').then(mod => mod.PROJECT_ROUTES)
   },
   {
-    path: authPaths.base,
+    path: 'auth',
     loadChildren: () => import('./app/auth/auth.routes').then(mod => mod.AUTH_ROUTES),
   },
   { path: appPaths.notFound, component: NotFoundComponent },
