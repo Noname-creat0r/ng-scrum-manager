@@ -1,0 +1,15 @@
+<div
+  cdkDropListGroup
+  class="project__board">
+  <div
+    class="project__board__container"
+    *ngFor="let container of boardContainers">
+    <h3>{{container.title}}</h3>
+    <hr/>
+
+    <task-list 
+      [container]="container"
+      [isLoading]="isLoading"/>
+  
+  </div>
+</div>

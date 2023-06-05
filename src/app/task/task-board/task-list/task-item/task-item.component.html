@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center">
+  {{task.title}}
+
+  <button 
+    type="button" 
+    class="btn"
+    [ngbPopover]="popContent"
+    [popoverTitle]="popTitle">
+    <img 
+      src="../../../assets/icons/three-dots-vertical.svg" 
+      alt="edit" 
+      class="navbar__icon--small project__board__container__item__options-toggle">
+  </button> 
+ 
+  <ng-template #popContent>
+    <div class="project__board__container__item__options">
+      <img 
+        src="../../../assets/icons/pencil-square.svg" 
+        alt="trash" 
+        class="navbar__icon--smal project__board__container__item__options__option">
+      <img 
+        src="../../../assets/icons/trash.svg" 
+        alt="trash" 
+        class="navbar__icon--smal project__board__container__item__options__option">
+    </div>
+  </ng-template>
+  
+  <ng-template #popTitle>
+    Options
+  </ng-template>
+
+</div>
+
+<div *cdkDragPreview>
+  <span class="d-block">
+    Description: {{task.description}}
+  </span>
+  <span class="d-block"> 
+    <b> Points: {{task.storyPoints}} </b>
+  </span>
+</div>
