@@ -5,7 +5,9 @@
     'slideInToolbar--top': state === 'shown'
   }">
   <div class="container-fluid mx-2">
-    <button class="navbar-brand navbar__tool-panel__item">
+    <button 
+      class="navbar-brand navbar__tool-panel__item"
+      (click)="onLogotypeClick()">
       <img 
         class="navbar__icon--large"   
         src="../../../../assets/images/a-logo-transparent.png" alt="logo-letter-a">

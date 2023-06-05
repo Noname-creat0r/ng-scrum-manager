@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
+import { Route, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 
+import { selectIsAuthenticated } from 'src/app/auth/store/auth.reducer';
+
 import { SignInComponent } from '../../../auth/signin/signin.component';
 import { LogoutComponent } from 'src/app/auth/logout/logout.component';
-import { selectIsAuthenticated } from 'src/app/auth/store/auth.reducer';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,8 @@ export class HeaderComponent {
 
   constructor(
     private modalService: NgbModal,
-    private readonly store: Store) {
+    private readonly store: Store,
+    private router: Router) {
   }
 
   onToggleToolbar() {
@@ -35,4 +38,7 @@ export class HeaderComponent {
     this.modalService.open(LogoutComponent, { size: 'sm' });
   }
 
+  onLogotypeClick() {
+    this.router.navigateByUrl('/home')
+  }
 }
