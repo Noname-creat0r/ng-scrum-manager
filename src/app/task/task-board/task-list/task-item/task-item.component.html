@@ -4,6 +4,8 @@
   <button 
     type="button" 
     class="btn"
+    (shown)="onPopoverShown()"
+    (hidden)="onPopoverHidden()"
     [ngbPopover]="popContent"
     [popoverTitle]="popTitle">
     <img 
@@ -15,10 +17,12 @@
   <ng-template #popContent>
     <div class="project__board__container__item__options">
       <img 
-        src="../../../assets/icons/pencil-square.svg" 
-        alt="trash" 
+        (click)="onTaskEditClicked()"
+        src="../../../assets/icons/pencil-square.svg"
+        alt="pensil" 
         class="navbar__icon--smal project__board__container__item__options__option">
       <img 
+        (click)="onTaskDeleteClicked()"
         src="../../../assets/icons/trash.svg" 
         alt="trash" 
         class="navbar__icon--smal project__board__container__item__options__option">
