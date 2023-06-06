@@ -1,0 +1,113 @@
+<div class="modal-content">
+  <div class="modal-header">
+   <h2 
+      class="modal-title fs-5" 
+      id="staticBackdropLabel">
+      New task
+    </h2>
+  </div>
+  <div class="modal-body">
+    <form
+      [formGroup]="taskForm"
+      (ngSubmit)="onSubmit()">
+
+        <div class="form-floating mb-3">
+          <input 
+            type="text"
+            class="form-control"
+            id="titleInput"
+            placeholder="accomplish something great"
+            formControlName="title"
+            required
+            [ngClass]="{
+              'is-invalid': !taskForm.get('title')?.valid 
+                && taskForm.get('title')?.touched,
+              'is-valid': taskForm.get('title')?.valid
+            }" >
+          <label for="titleInput">Title:</label>
+          <div class="invalid-feedback">
+            Enter a propper title, please.
+          </div>
+        </div> 
+
+        <div class="form-floating mb-3 has-validation">
+          <textarea 
+            class="form-control"
+            id="descriptionInput"
+            placeholder="a little bit about the task"
+            formControlName="description"
+            rows={4}
+            required
+            [ngClass]="{
+              'is-invalid': !taskForm.get('description')?.valid 
+                && taskForm.get('description')?.touched,
+              'is-valid': taskForm.get('description')?.valid
+            }">
+          </textarea>
+          <label for="descriptionInput">Description:</label>
+          <div class="invalid-feedback">
+            Describe the task a little.
+          </div>
+        </div>
+      
+        <div class="form-floating mb-3 has-validation">
+          <select 
+            class="form-control"
+            id="statusInput"
+            placeholder="select task status"
+            formControlName="status"
+            required
+            [ngClass]="{
+              'is-invalid': !taskForm.get('status')?.valid 
+                && taskForm.get('status')?.touched,
+              'is-valid': taskForm.get('status')?.valid
+            }">
+            <option selected value="Todo">Todo</option>
+            <option value="Doing">Doing</option>
+            <option value="Done">Done</option>
+          </select>
+          <label for="statusInput">Status:</label>
+          <div class="invalid-feedback">
+            Select a status.
+          </div>
+        </div> 
+          
+        <div class="form-floating mb-3 has-validation">
+          <input 
+            type="number"
+            class="form-control"
+            id="pointsInput"
+            placeholder="task story points"
+            formControlName="storyPoints"
+            required
+            min="0"
+            max="100"
+            [ngClass]="{
+              'is-invalid': !taskForm.get('storyPoints')?.valid 
+                && taskForm.get('storyPoints')?.touched,
+              'is-valid': taskForm.get('storyPoints')?.valid
+            }">
+          <label for="pointsInput">Story points:</label>
+          <div class="invalid-feedback">
+            Input story points.
+          </div>
+        </div> 
+
+     </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-success "
+      (click)="onSubmit()"
+      [disabled]="!taskForm.valid || !projectId">
+      Add
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-secondary " 
+      (click)="activeModal.close()">
+      Close
+    </button>
+  </div>
+</div>
