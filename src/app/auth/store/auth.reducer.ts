@@ -1,12 +1,13 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { SignUpActions, SignInActions } from '../store/auth.actions';
-import { setStorageItem, getStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
+import { setStorageItem, getStorageItem,
+  removeStorageItem} from "src/app/shared/utils/storage/local-storage-facade";
 
 interface State {
   isAuthenticated: boolean;
   loading: boolean;
-  userId: string | null;
-  token: string | null;
+  userId: string | undefined;
+  token: string | undefined;
   error: string | null;
 };
 
@@ -44,13 +45,17 @@ export const authFeature = createFeature({
         error: null
       }
     }),
-    on(SignInActions.logout, (state) => ({
-      ...state,
-      isAuthenticated: false,
-      userId: null,
-      token: null,
-      error: null,
-    })),
+    on(SignInActions.logout, (state) => {
+      removeStorageItem('token')
+      removeStorageItem('userId')
+      return {
+        ...state,
+        isAuthenticated: false,
+        userId: undefined,
+        token: undefined,
+        error: null,
+      }
+    }),
     
     on(SignUpActions.initialized, (state) => ({
       ...state,

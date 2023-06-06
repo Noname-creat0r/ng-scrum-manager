@@ -1,6 +1,6 @@
 export const getStorageItem = (key: string) => {
   const item = localStorage.getItem(key)
-  return item;
+  return item ? item : undefined;
 }
 
 export const setStorageItem = (key: string, value: any) => {
