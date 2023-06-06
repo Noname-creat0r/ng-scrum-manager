@@ -27,6 +27,15 @@
     }
   }
 
+  &__controls {
+    width: 15%;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
   &__board {
     display: flex;
     justify-content: space-around;
