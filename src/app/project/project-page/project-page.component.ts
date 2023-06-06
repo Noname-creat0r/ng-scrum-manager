@@ -1,23 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { select, Store } from '@ngrx/store';
-import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subscription } from 'rxjs';
 
 import { selectCurrentProjectId, selectProject } from '../store/project.reducer';
 import { selectTasks, selectLoading } from 'src/app/task/store/task.reducer';
 
 import { LoadingProjectsActions } from '../store/project.actions';
-import { LoadingTasksActions } from 'src/app/task/store/task.actions';
+import { LoadingTasksActions, TaskActions } from 'src/app/task/store/task.actions';
 
-import {  TaskModel } from 'src/app/task/task.model';
+import { TaskModel } from 'src/app/task/task.model';
 import { ProjectModel } from '../project.model';
+
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
+import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
 
 @Component({
   selector: 'project-page',
   standalone: true,
-  imports: [CommonModule, TaskBoardComponent ],
+  imports: [CommonModule, TaskBoardComponent, TaskControlComponent ],
   templateUrl: 'project-page.component.html'
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
@@ -27,7 +29,9 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   
   projectIdSub!: Subscription
 
-  constructor(private readonly store: Store) { }
+  constructor(
+    private readonly store: Store,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     // load project
@@ -45,5 +49,9 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.projectIdSub.unsubscribe()
   }
-  
+ 
+  onAddTask() {
+    this.store.dispatch(TaskActions.deselected())
+    this.modalService.open(TaskControlComponent)
+  }
 } 

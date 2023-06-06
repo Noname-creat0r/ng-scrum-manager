@@ -32,7 +32,16 @@
         <a href="" class="nav-link">Iterations</a>
       </li>
     </ul>
- 
+
+    <div class="project__controls">
+      <button 
+        class="btn btn-lg btn-outline-dark" 
+        (click)="onAddTask()"> 
+        New Task 
+      </button>
+    </div>
+   
+
     <task-board 
       [tasksObs]="tasks$"
       [isLoading]="isLoadingTasks$ | async"/> 
