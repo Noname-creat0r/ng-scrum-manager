@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
+
 import { TaskModel, TaskSuccess } from "./task.model";
 
 @Injectable({ providedIn: 'root' })
@@ -20,4 +21,26 @@ export class TaskService {
     )
   }
 
+  postTask(task: TaskModel): Observable<{ task: TaskModel, message?: string }> {
+    return this.http.post<{ task: TaskModel, message?: string }>(
+      process.env['NG_APP_BASE_URL'] + '/task',
+      { ...task },
+      { ...this.baseHeaders }
+    )
+  }
+
+  deleteTask(taskId: number): Observable<{ taskId: number, message?: string }> {
+    return this.http.delete<{ taskId: number, message?: string }>(
+      process.env['NG_APP_BASE_URL'] + '/task?taskId=' + taskId,
+      { ...this.baseHeaders }, 
+    )
+  }
+
+  putTask(task: TaskModel): Observable<{ task: TaskModel, message?: string }> {
+    return this.http.put<{ task: TaskModel, message?: string }>(
+      process.env['NG_APP_BASE_URL'] + '/task',
+      { ...task },
+      { ...this.baseHeaders } 
+    )
+  }
 }

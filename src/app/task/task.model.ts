@@ -1,10 +1,12 @@
 export interface TaskModel {
+  id?: number,
   title: string,
   description: string,
   storyPoints: number,
-  iterationId: number,
+  iterationId?: number,
+  projectId?: number,
   status: {
-    status: string  
+    status: string
   }
 }
 
