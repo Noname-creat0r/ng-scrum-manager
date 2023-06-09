@@ -101,7 +101,7 @@
       class="btn btn-success "
       (click)="onSubmit()"
       [disabled]="!taskForm.valid || !projectId">
-      Add
+      {{ mode }} 
     </button>
     <button 
       type="button" 
