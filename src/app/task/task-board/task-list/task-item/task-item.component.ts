@@ -5,7 +5,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 
 import { TaskModel } from '../../../task.model';
-import { TaskActions } from 'src/app/task/store/task.actions';
+import { DeletingTaskActions, TaskActions } from 'src/app/task/store/task.actions';
 import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
 
 @Component({
@@ -32,6 +32,6 @@ export class TaskItemComponent {
   }
 
   onTaskDeleteClicked() {
-
+    this.store.dispatch(DeletingTaskActions.initialized({ taskId: this.task.id }))
   }
 }
