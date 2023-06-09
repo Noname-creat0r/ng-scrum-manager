@@ -1,20 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store'; 
+import { Observable } from 'rxjs';
 
 import { TaskModel, TaskDisplayContainer } from '../task.model';
 
 import { TaskListComponent } from './task-list/task-list.component';
-import { Observable } from 'rxjs';
+import { TaskSync } from '../store/task.actions';
 
 @Component({
   selector: 'task-board',
   standalone: true,
-  imports: [CommonModule, DragDropModule, NgbPopoverModule, NgFor, TaskListComponent],
+  imports: [CommonModule, DragDropModule, NgbPopoverModule, TaskListComponent],
   templateUrl: 'task-board.component.html'
 })
-export class TaskBoardComponent {
+export class TaskBoardComponent implements OnInit, OnDestroy {
   @Input() isLoading: boolean | null = false
   @Input() tasksObs!: Observable<Array<TaskModel>>
 
@@ -33,6 +35,24 @@ export class TaskBoardComponent {
     }
   ]
 
+  constructor(private readonly store: Store) {}
+
+  syncContainers() {
+    const positionsContainer = []
+    for (const container of this.boardContainers) {
+      const conStatus = container.title 
+      const conPosData = container.data.map(model => ({
+        id: model.content.id,
+        bContainerPos: container.data.findIndex(sModel => sModel.content.id === model.content.id),
+        status: conStatus
+      })) 
+      positionsContainer.push(...conPosData)
+    }
+      
+    this.store.dispatch(TaskSync.initialized({ positionsContanier: positionsContainer }))
+
+  }
+
   ngOnInit() {
     this.tasksObs.subscribe(tasks => {
       if (tasks.length) {
@@ -42,6 +62,11 @@ export class TaskBoardComponent {
           const containerData: Array<{ disabled: boolean, content: TaskModel }> = 
             tasks
               .filter(task => task.status.status === title)
+              .sort((tA: TaskModel, tB: TaskModel) => { 
+                if (tA.bContainerPos > tB.bContainerPos) return 1;
+                else if (tA.bContainerPos < tB.bContainerPos) return -1;
+                else return 0;
+              })
               .map(task => ({
                 disabled: false,
                 content: task
@@ -55,5 +80,7 @@ export class TaskBoardComponent {
     })
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.syncContainers()
+  }
 }

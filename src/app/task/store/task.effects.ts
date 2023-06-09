@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { map, exhaustMap, catchError } from "rxjs/operators";
 
 import { TaskService } from "../task.service";
-import { AddingTaskActions, DeletingTaskActions, EditingTaskActions, LoadingTasksActions } from "../store/task.actions";
+import { AddingTaskActions, DeletingTaskActions, EditingTaskActions, LoadingTasksActions, TaskSync } from "../store/task.actions";
 
 @Injectable()
 export class TaskEffects {
@@ -16,6 +16,18 @@ export class TaskEffects {
         .pipe(
           map(res => LoadingTasksActions.succeeded({ tasks: res.tasks })),
           catchError(error => of(LoadingTasksActions.failed({ error })))
+        )
+      )
+    ) 
+  );
+
+  syncTasks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskSync.initialized),
+      exhaustMap(action => this.taskService.syncTasks(action.positionsContanier)
+        .pipe(
+          map(res => TaskSync.succeeded({ message: res.message })),
+          catchError(error => of(TaskSync.failed({ error })))
         )
       )
     ) 

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
 
-import { LoadingTasksActions } from '../../store/task.actions';
+import { LoadingTasksActions, TaskActions } from '../../store/task.actions';
 import { selectCurrentProjectId } from 'src/app/project/store/project.reducer';
 
 import { TaskDisplayContainer, TaskModel } from '../../task.model';
@@ -26,14 +26,22 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() { }
 
-  drop(event: CdkDragDrop<Array<{
-    content: TaskModel,
-    disabled: boolean}>>
-  ) {
+  drop(event: CdkDragDrop<Array<{ content: TaskModel, disabled: boolean }>>) {
+      
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
+      //this.store.dispatch(TaskActions.moved({ bContainerPos: event.currentIndex}))
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      )
     } else {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      )
     }
   }
 }

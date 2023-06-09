@@ -2,7 +2,7 @@ import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
 import { TaskActions, AddingTaskActions, DeletingTaskActions, EditingTaskActions,
   LoadingTasksActions } from "./task.actions";
 import { TaskModel } from "../task.model";
-import { getStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
+import { getStorageItem, removeStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
 
 interface State {
   tasks: Array<TaskModel>;
@@ -29,7 +29,15 @@ export const taskFeature = createFeature({
 
       return {
         ...state,
-        currentTaskId: currentTaskId 
+        taskId: currentTaskId 
+      }
+    }),
+    on(TaskActions.deselected, (state) => {
+      removeStorageItem('taskId')
+ 
+      return {
+        ...state,
+        taskId: undefined
       }
     }),
 
@@ -66,20 +74,22 @@ export const taskFeature = createFeature({
     })),
 
     on(DeletingTaskActions.initialized, (state) => ({
-      ...state
+      ...state,
+      loading: true,
     })),
     on(DeletingTaskActions.failed, (state, payload) => ({
       ...state,
-      error: payload.error
+      error: payload.error,
+      loading: false,
     })),
     on(DeletingTaskActions.succeeded, (state, payload) => {
-      const delTaskId = payload.taskId 
-      const updTasks = state.tasks
-      updTasks.splice(delTaskId, 1)
+      const delTaskId = payload.taskId
+      const updTasks = state.tasks.filter(task => task.id !== delTaskId)
 
       return {
         ...state,  
         error: null,
+        loading: false,
         tasks: updTasks
       }
     }),
@@ -93,7 +103,7 @@ export const taskFeature = createFeature({
     })),
     on(EditingTaskActions.succeeded, (state, payload) => { 
       const updTaskId = state.tasks.findIndex(task => task.id === payload.task.id )
-      const updTasks = state.tasks
+      const updTasks = [...state.tasks]
       updTasks[updTaskId] = payload.task
 
       return {
@@ -111,6 +121,10 @@ export const selectIterationTasks = (iterationId: number) =>
     return tasks.filter(task => task.iterationId === iterationId)
   })
 
+export const selectTask = () =>
+  createSelector(selectTaskState, (state) => {
+    return state.tasks.find(task => task.id === (state.taskId ? +state.taskId : '')) 
+  })
 
 export const {
   name,

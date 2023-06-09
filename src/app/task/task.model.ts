@@ -1,10 +1,12 @@
 export interface TaskModel {
-  id?: number,
+  id: number,
   title: string,
   description: string,
   storyPoints: number,
   iterationId?: number,
   projectId?: number,
+  bContainerPos: number,
+  iContainerPos?: number,
   status: {
     status: string
   }
