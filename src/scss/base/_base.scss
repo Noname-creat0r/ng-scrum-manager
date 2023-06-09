@@ -19,4 +19,11 @@ body {
   width: 25%;
 }
 
+.cdk-drag-placeholder {
+  border: 1px solid $color-black;
+  opacity: 1;
+}
 
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
