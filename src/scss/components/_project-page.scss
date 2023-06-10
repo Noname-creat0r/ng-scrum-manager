@@ -65,8 +65,9 @@
 
         &__options {
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           transition: all .2s;
+          width: 5rem;
 
           &__option { 
               

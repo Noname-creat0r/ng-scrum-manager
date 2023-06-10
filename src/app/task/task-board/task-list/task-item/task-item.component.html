@@ -17,15 +17,20 @@
   <ng-template #popContent>
     <div class="project__board__container__item__options">
       <img 
+        (click)="onTaskPreviewClicked()"
+        src="../../../assets/icons/eye.svg"
+        alt="eye" 
+        class="navbar__icon--small project__board__container__item__options__option">
+      <img 
         (click)="onTaskEditClicked()"
         src="../../../assets/icons/pencil-square.svg"
         alt="pensil" 
-        class="navbar__icon--smal project__board__container__item__options__option">
+        class="navbar__icon--small project__board__container__item__options__option">
       <img 
         (click)="onTaskDeleteClicked()"
         src="../../../assets/icons/trash.svg" 
         alt="trash" 
-        class="navbar__icon--smal project__board__container__item__options__option">
+        class="navbar__icon--small project__board__container__item__options__option">
     </div>
   </ng-template>
   

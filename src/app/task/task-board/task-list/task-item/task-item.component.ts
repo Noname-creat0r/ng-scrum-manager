@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { TaskModel } from '../../../task.model';
 import { DeletingTaskActions, TaskActions } from 'src/app/task/store/task.actions';
 import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
+import { TaskPreviewComponent } from 'src/app/task/task-preview/task-preview.component';
 
 @Component({
   selector: 'task-item',
@@ -27,11 +28,15 @@ export class TaskItemComponent {
 
   onPopoverHidden() {}
 
+  onTaskPreviewClicked() {
+    this.modalService.open(TaskPreviewComponent, { centered: true, size: 'md' })
+  }
+
   onTaskEditClicked() {
    this.modalService.open(TaskControlComponent) 
   }
 
   onTaskDeleteClicked() {
-    this.store.dispatch(DeletingTaskActions.initialized({ taskId: this.task.id }))
+    this.store.dispatch(DeletingTaskActions.initialized({ taskId: this.task.id } ))
   }
 }

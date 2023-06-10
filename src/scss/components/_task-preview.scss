@@ -1,0 +1,58 @@
+.task-preview {
+
+  &__title {
+    width: 80%;
+    height: 4.9rem;
+    overflow: scroll;
+  }
+
+  &__description {
+    margin-top: 2rem;
+    padding: 1rem;
+    height: 12rem;
+    overflow: scroll;
+  }
+
+  &__points {
+    position: absolute;
+    left: 83.3%;
+    bottom: 63.8%;
+    width: 8rem;
+    height: 8rem;
+    
+    display: flex;
+    flex-direction: column; 
+    
+    color: whitesmoke;
+    background-image: linear-gradient(to left bottom, $color-blue, $color-pink);
+    clip-path: circle(80% at 100% 0);  
+
+    transition: all .2s;
+
+    &:hover {
+      box-shadow: 0.3em 0.8em 1em rgba($color-pink, .4);
+      clip-path: circle(90% at 100% 0);  
+    }
+  
+    &__icon {
+      position: relative;
+      left: 45%;
+      top: 12%;
+      color: whitesmoke;
+    }
+
+    &__title {
+      position: relative;
+      left: 45%;
+      bottom: 8%;
+    }
+
+    &__value {
+      position: relative;
+      left: 70%;
+      bottom: 10%;
+    }
+
+    
+  }
+}
