@@ -9,40 +9,43 @@ import { selectTasks, selectLoading } from 'src/app/task/store/task.reducer';
 
 import { LoadingProjectsActions } from '../store/project.actions';
 import { LoadingTasksActions, TaskActions } from 'src/app/task/store/task.actions';
+import { LoadingIterationsActions } from 'src/app/iteration/store/iteration.actions';
 
 import { TaskModel } from 'src/app/task/task.model';
 import { ProjectModel } from '../project.model';
 
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
 import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
+import { IterationListComponent } from 'src/app/iteration/iteration-list/iteration-list.component';
 
 @Component({
   selector: 'project-page',
   standalone: true,
-  imports: [CommonModule, TaskBoardComponent, TaskControlComponent ],
+  imports: [CommonModule, TaskBoardComponent, TaskControlComponent, IterationListComponent ],
   templateUrl: 'project-page.component.html'
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
   project$!: Observable<ProjectModel | undefined> 
   isLoadingTasks$!: Observable<boolean>
   tasks$!: Observable<Array<TaskModel>>  
-  
+   
   projectIdSub!: Subscription
+  
+  mode: 'iteration' | 'backlog' | 'task' = 'backlog';
 
   constructor(
     private readonly store: Store,
     private modalService: NgbModal) { }
 
   ngOnInit() {
-    // load project
-    this.store.dispatch(LoadingProjectsActions.initialized({ userId: undefined })) 
-    
     this.project$ = this.store.select(selectProject())
     this.tasks$ = this.store.select(selectTasks)
     this.isLoadingTasks$ = this.store.select(selectLoading)
     
     this.projectIdSub = this.store.select(selectCurrentProjectId).subscribe(id => {
-      this.store.dispatch(LoadingTasksActions.initialized({ projectId: id?.toString()}))
+      this.store.dispatch(LoadingProjectsActions.initialized({ projectId: id?.toString() })) 
+      this.store.dispatch(LoadingTasksActions.initialized({ projectId: id?.toString() }))
+      this.store.dispatch(LoadingIterationsActions.initialized({ projectId: id?.toString() }))
     }) 
   }
 
@@ -50,8 +53,14 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.projectIdSub.unsubscribe()
   }
  
+  onSwitchMode() {
+    if (this.mode === 'backlog') this.mode = 'iteration'
+    else this.mode = 'backlog'
+  }
+
   onAddTask() {
     this.store.dispatch(TaskActions.deselected())
     this.modalService.open(TaskControlComponent)
   }
+
 } 

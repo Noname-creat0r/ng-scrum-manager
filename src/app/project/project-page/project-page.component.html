@@ -21,15 +21,25 @@
     </div>
     
     <p class="project__description">
-     {{ (project$ | async)?.description }} 
+      {{ (project$ | async)?.description }} 
     </p>
+
+    <span class="project__createdAt">
+      Created at: {{ (project$ | async)?.createdAt?.toString() }} 
+    </span> 
 
     <ul class="nav nav-tabs project__tabs">
       <li class="nav-item project__tabs__tab">
-        <a href="" class="nav-link active">Backlog</a>
+        <button 
+          (click)="onSwitchMode()"
+          [ngClass]="mode === 'backlog' ? 'active' : '' "
+          class="nav-link">Backlog</button>
       </li>
       <li class="nav-item project__tabs__tab">
-        <a href="" class="nav-link">Iterations</a>
+        <button
+          (click)="onSwitchMode()"
+          [ngClass]="mode === 'iteration' ? 'active' : '' "
+          class="nav-link">Iterations</button>
       </li>
     </ul>
 
@@ -37,15 +47,18 @@
       <button 
         class="btn btn-lg btn-outline-dark" 
         (click)="onAddTask()"> 
-        New Task 
+        New {{ mode === 'backlog' ? 'task': mode}} 
       </button>
     </div>
    
-
     <task-board 
+      *ngIf="mode === 'backlog'"
       [tasksObs]="tasks$"
       [isLoading]="isLoadingTasks$ | async"/> 
-      
+    
+    <iteration-list 
+      *ngIf="mode === 'iteration'"/>
+
   </div>
 </div>
 
