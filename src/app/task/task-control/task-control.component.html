@@ -71,7 +71,29 @@
             Select a status.
           </div>
         </div> 
-          
+        
+        <div class="form-floating mb-3 has-validation">
+          <select 
+            class="form-control"
+            id="iterationInput"
+            placeholder="iteration"
+            formControlName="iteration"
+            required
+            [ngClass]="{
+              'is-invalid': !taskForm.get('iteration')?.valid 
+                && taskForm.get('iteration')?.touched,
+              'is-valid': taskForm.get('iteration')?.valid
+            }">
+            <option 
+              *ngFor="let iteration of iterations"
+              [value]="iteration.id">
+              {{iteration.title}}  
+            </option>
+            <option value="null"> No iteration</option>
+          </select>
+          <label for="iterationInput">Iteration:</label> 
+        </div> 
+
         <div class="form-floating mb-3 has-validation">
           <input 
             type="number"

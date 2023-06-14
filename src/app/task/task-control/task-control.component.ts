@@ -7,11 +7,14 @@ import { Observable, Subscription, window } from 'rxjs';
 
 import { AddingTaskActions, EditingTaskActions } from '../store/task.actions';
 import { TaskModel } from '../task.model';
+import { IterationModel } from 'src/app/iteration/iteration.model';
+
 import { selectCurrentProjectId } from 'src/app/project/store/project.reducer';
 import { selectTask, selectTaskId } from '../store/task.reducer';
+import { selectIterations } from 'src/app/iteration/store/iteration.reducer';
 
 @Component({
-  selector: 'app-task-control',
+  selector: 'task-control',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: 'task-control.component.html' 
@@ -22,11 +25,13 @@ export class TaskControlComponent implements OnInit, OnDestroy {
   private taskIdSub!: Subscription
   private taskSub!: Subscription
   private projectIdSub!: Subscription
+  private iterationsSub!: Subscription
 
   //editTask!: TaskModel
   public mode: "Add" | "Edit" = "Add"
   public taskId: string | undefined = undefined
   public projectId: string | undefined = undefined  
+  public iterations!: Array<IterationModel> 
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -41,6 +46,7 @@ export class TaskControlComponent implements OnInit, OnDestroy {
         Validators.maxLength(512)
       ]),
       'status': new FormControl(task?.status.status || null, [Validators.required ]),
+      'iteration': new FormControl(task?.iterationId),
       'storyPoints': new FormControl(task?.storyPoints || null, [Validators.required ])
     }); 
   }
@@ -52,6 +58,10 @@ export class TaskControlComponent implements OnInit, OnDestroy {
 
     this.taskIdSub = this.store.select(selectTaskId).subscribe(id => {
       this.taskId = id
+    })
+
+    this.iterationsSub = this.store.select(selectIterations).subscribe(iterations => {
+      this.iterations = iterations
     })
 
     this.taskSub = this.store.select(selectTask()).subscribe(task => {
@@ -70,6 +80,7 @@ export class TaskControlComponent implements OnInit, OnDestroy {
     this.projectIdSub.unsubscribe()
     this.taskIdSub.unsubscribe()
     this.taskSub.unsubscribe()
+    this.iterationsSub.unsubscribe()
   }
 
   onSubmit() {
@@ -78,6 +89,7 @@ export class TaskControlComponent implements OnInit, OnDestroy {
       title: this.taskForm.get('title')?.value,
       description: this.taskForm.get('description')?.value,
       storyPoints: this.taskForm.get('storyPoints')?.value,
+      iterationId: this.taskForm.get('iteration')?.value ,
       projectId: this.projectId ? +this.projectId : undefined,
       bContainerPos: 0,
       status: this.taskForm.get('status')?.value
