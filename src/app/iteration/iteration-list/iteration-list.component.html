@@ -1,0 +1,11 @@
+<div>
+  <div class="iteration-list">
+    <iteration-item 
+      *ngFor="let iteration of (iterations$ | async)"
+      [iteration]="iteration"/> 
+  </div>
+  <task-board
+    [tasksObs]="tasks$"
+    [isLoading]="isLoadingTasks$ | async"/>
+</div>
+
