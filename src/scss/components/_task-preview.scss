@@ -31,7 +31,8 @@
 
     &:hover {
       box-shadow: 0.3em 0.8em 1em rgba($color-pink, .4);
-      clip-path: circle(90% at 100% 0);  
+      clip-path: circle(90% at 100% 0); 
+      font-weight: 1000;
     }
   
     &__icon {

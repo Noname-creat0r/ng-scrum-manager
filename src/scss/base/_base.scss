@@ -4,7 +4,6 @@ html {
 
 body { 
   font-family: 'Roboto Mono', monospace;
-  background-color: #FAFAFA;
 }
 
 .modal {
@@ -13,6 +12,15 @@ body {
 
 .popover {
   cursor: pointer;
+}
+
+.cdk-drag {
+  transition: all 250ms; 
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 2px 2px rgba($color-pink, 0.5);
+   }
 }
 
 .cdk-drag-preview {
@@ -24,8 +32,6 @@ body {
 }
 
 .cdk-drag-placeholder {
-  border: 1px solid $color-black;
-  opacity: 1;
 }
 
 .cdk-drag-animating {

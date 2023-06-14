@@ -1,0 +1,44 @@
+.task-board {
+
+  display: flex;
+  justify-content: space-around;
+
+  &__container {
+    margin: 0 2rem;
+    text-align: center;
+    width: 25rem;
+
+    &__item {
+      text-align: inherit;
+      padding: 1rem;
+      border: 1px solid black;
+      border-radius: 5px;
+      cursor: move;
+      margin: .7rem 0;
+      
+      &__options-toggle {
+         
+        &:hover {
+          outline: 1px solid $color-black;
+          border-radius: 3px;
+          box-shadow: 3px 3px 1px $color-pink;
+        } 
+
+      }
+
+      &__options {
+        display: flex;
+        justify-content: space-between;
+        transition: all .2s;
+
+        &__option { 
+          &:hover {
+            transform: scale(1.2)  
+          }
+        }
+      }
+    }
+    
+  }
+
+}
