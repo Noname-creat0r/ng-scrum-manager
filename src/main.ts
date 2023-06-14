@@ -12,16 +12,18 @@ import { NotFoundComponent } from './app/shared/components/errors/not-found/not-
 //NgRx Features
 import { authFeature } from './app/auth/store/auth.reducer';
 import { projectFeature } from './app/project/store/project.reducer';
+import { taskFeature } from './app/task/store/task.reducer';
+import { iterationFeature } from './app/iteration/store/iteration.reducer';
 //NgRx Effectns
 import { AuthEffects } from './app/auth/store/auth.effects';
 import { ProjectEffects } from './app/project/store/project.effects'; 
+import { TaskEffects } from './app/task/store/task.effects';
+import { IterationEffects } from './app/iteration/store/iteration.effects';
 //Paths
 import { appPaths } from './app/app.routes';
 import { authPaths } from './app/auth/auth.routes';
 import { homePaths } from './app/home/home.routes';
 import { projectPaths } from './app/project/project.routes';
-import { taskFeature } from './app/task/store/task.reducer';
-import { TaskEffects } from './app/task/store/task.effects';
 
 // const reducers: ActionReducerMap<any> = {
 //   auth: authFeature.reducer,
@@ -37,8 +39,8 @@ const appRoutes: Routes = [
   { 
     path: projectPaths.base,
     providers: [
-      provideState(projectFeature), provideState(taskFeature),
-      provideEffects(ProjectEffects, TaskEffects),
+      provideState(projectFeature), provideState(taskFeature), provideState(iterationFeature),
+      provideEffects(ProjectEffects, TaskEffects, IterationEffects),
     ],
     loadChildren: () => import('./app/project/project.routes').then(mod => mod.PROJECT_ROUTES)
   },
