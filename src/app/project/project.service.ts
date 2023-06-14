@@ -14,9 +14,10 @@ export class ProjectService {
   
   constructor(private http: HttpClient) { }
  
-  loadProjects(): Observable<ProjectSuccess> {
+  loadProjects(userId?: string, projectId?: string): Observable<ProjectSuccess> {
+    const projectIdUrl = projectId ? `/${projectId}` : ''
     return this.http.get<ProjectSuccess>(
-      process.env['NG_APP_BASE_URL'] + '/project',
+      process.env['NG_APP_BASE_URL'] + '/project' + projectIdUrl,
       { ...this.baseHeaders }
     );
   }  

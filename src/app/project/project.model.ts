@@ -1,3 +1,5 @@
+import { IterationModel } from "../iteration/iteration.model"
+
 export interface ProjectModel {
   id: number,
   title: string,
@@ -12,7 +14,10 @@ export interface ProjectModel {
     name: string,
     email: string,
     createdAt: Date,
-  }
+  },
+  iterations?: Array<IterationModel>,
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 export interface ProjectSuccess {

@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
-import { LoadingProjectsActions, LoadingProjectActions, ProjectActions } from "./project.actions";
+import { LoadingProjectsActions, ProjectActions } from "./project.actions";
 import { ProjectModel } from "../project.model";
 import { getStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
 
@@ -7,6 +7,7 @@ interface State {
   projects: Array<ProjectModel>,
   currentProjectId: string | undefined,
   loading: boolean;
+  loadingProject: boolean;
   error: string | null;
 };
 
@@ -14,6 +15,7 @@ const initialState: State = {
   projects: new Array<ProjectModel>(),
   currentProjectId: getStorageItem('projectId'),
   loading: false, 
+  loadingProject: false,
   error: null,
 }
 
@@ -21,6 +23,14 @@ export const projectFeature = createFeature({
   name: 'project',
   reducer: createReducer(
     initialState,
+    on(ProjectActions.selected, (state, payload) => {
+      setStorageItem('projectId', payload.projectId.toString())
+      return {
+        ...state,
+        currentProjectId: getStorageItem('projectId')
+      }
+    }),
+
     on(LoadingProjectsActions.initialized, (state) => ({ 
       ...state,
       loading: true,
@@ -36,13 +46,7 @@ export const projectFeature = createFeature({
       loading: false,
       projects: payload.projects 
     })),
-    on(ProjectActions.selected, (state, payload) => {
-      setStorageItem('projectId', payload.projectId.toString())
-      return {
-        ...state,
-        currentProjectId: getStorageItem('projectId')
-      }
-    })
+
   ),
 });
 

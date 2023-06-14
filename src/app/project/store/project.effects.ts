@@ -12,7 +12,7 @@ export class ProjectEffects {
   loadProjects$ = createEffect(() => 
     this.actions$.pipe(
       ofType(LoadingProjectsActions.initialized),
-      exhaustMap(action => this.projectService.loadProjects()
+      exhaustMap(action => this.projectService.loadProjects(action.userId, action.projectId)
         .pipe(
           map(res => LoadingProjectsActions.succeeded({ projects: res.projects })),
           catchError(error => of(LoadingProjectsActions.failed({ error })))
