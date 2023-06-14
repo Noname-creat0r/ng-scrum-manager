@@ -5,7 +5,7 @@
   (cdkDropListDropped)="drop($event)">
   <div *ngIf="!isLoading; else loadingTasks">
     <div 
-      class="project__board__container__item fadeIn" 
+      class="task-board__container__item fadeIn" 
       *ngFor="let item of container.data"
       [cdkDragDisabled]="item.disabled"
       cdkDrag>
@@ -25,7 +25,7 @@
   </div>
 
   <ng-template #loadingTasks>
-    <div class="project__board__container fadeIn" >
+    <div class="task-board__container fadeIn" >
       <img 
         src="../../../assets/animated/double-ring-1s-197px.svg"
         alt="loading-spinner"

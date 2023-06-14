@@ -11,27 +11,49 @@
     <img 
       src="../../../assets/icons/three-dots-vertical.svg" 
       alt="edit" 
-      class="navbar__icon--small project__board__container__item__options-toggle">
+      class="navbar__icon--small task-board__container__item__options-toggle">
   </button> 
  
   <ng-template #popContent>
-    <div class="project__board__container__item__options">
-      <img 
-        (click)="onTaskPreviewClicked()"
-        src="../../../assets/icons/eye.svg"
-        alt="eye" 
-        class="navbar__icon--small project__board__container__item__options__option">
-      <img 
-        (click)="onTaskEditClicked()"
-        src="../../../assets/icons/pencil-square.svg"
-        alt="pensil" 
-        class="navbar__icon--small project__board__container__item__options__option">
-      <img 
-        (click)="onTaskDeleteClicked()"
-        src="../../../assets/icons/trash.svg" 
-        alt="trash" 
-        class="navbar__icon--small project__board__container__item__options__option">
-    </div>
+    <ul class="task-board__container__item__options list-group">
+      <li 
+        class="list-group-item list-group-item-action"
+        (click)="onTaskMoveToIteration()">
+        <img 
+          
+          src="../../../assets/icons/move.svg"
+          alt="move" 
+          class="navbar__icon--small task-board__container__item__options__option"/>
+        Move
+      </li>
+      <li 
+        class="list-group-item list-group-item-action"
+        (click)="onTaskPreviewClicked()">
+        <img 
+          src="../../../assets/icons/eye.svg"
+          alt="eye" 
+          class="navbar__icon--small task-board__container__item__options__option">
+        View
+      </li>
+      <li 
+        class="list-group-item list-group-item-action"
+        (click)="onTaskEditClicked()">
+        <img 
+          src="../../../assets/icons/pencil-square.svg"
+          alt="pensil" 
+          class="navbar__icon--small task-board__container__item__options__option">
+        Edit
+      </li>
+      <li 
+        class="list-group-item list-group-item-action"
+        (click)="onTaskDeleteClicked()">
+        <img 
+          src="../../../assets/icons/trash.svg" 
+          alt="trash" 
+          class="navbar__icon--small task-board__container__item__options__option">
+        Delete
+      </li> 
+    </ul>
   </ng-template>
   
   <ng-template #popTitle>

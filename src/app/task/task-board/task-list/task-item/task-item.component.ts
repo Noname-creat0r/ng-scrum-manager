@@ -8,6 +8,7 @@ import { TaskModel } from '../../../task.model';
 import { DeletingTaskActions, TaskActions } from 'src/app/task/store/task.actions';
 import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
 import { TaskPreviewComponent } from 'src/app/task/task-preview/task-preview.component';
+import { TaskIterationControlComponent } from 'src/app/task/task-control/task-iteration-control/task-iteration-control.component';
 
 @Component({
   selector: 'task-item',
@@ -38,5 +39,9 @@ export class TaskItemComponent {
 
   onTaskDeleteClicked() {
     this.store.dispatch(DeletingTaskActions.initialized({ taskId: this.task.id } ))
+  }
+
+  onTaskMoveToIteration() {
+    this.modalService.open(TaskIterationControlComponent)
   }
 }
