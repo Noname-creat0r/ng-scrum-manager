@@ -6,12 +6,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p>
-      not-found works!
-    </p>
-  `,
-  styles: [
-  ]
+    <div class="container not-found ">
+      <h2 class="display-2 header-primary">Oh, boi... page not found</h2>
+      <p> This is a dead end, i guess. </p> 
+    </div>
+  `
 })
 export class NotFoundComponent {
 
