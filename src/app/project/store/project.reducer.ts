@@ -60,9 +60,9 @@ export const selectUserProjects = (userId: number) =>
     return projects.filter(project => project.authorId === userId)
   })
 
-export const selectPrivateUserProjects = (userId: number) => 
+export const selectFilteredUserProjects = (userId: number, isPrivate: boolean) => 
   createSelector(selectUserProjects(userId), (projects) => {
-    return projects.filter(project => project.private)
+    return projects.filter(project => project.private === isPrivate)
   })
 
 export const {

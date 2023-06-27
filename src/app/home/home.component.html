@@ -1,11 +1,24 @@
-<div class="container text-center">
-  <ul class="d-flex flex-column">
+<div class="home">
+  <ul class="d-flex flex-column home__options">
     <a 
       routerLink="/projects" 
       class="display-3 header-primary">
       Projects
     </a> 
-    <a class="display-3 header-primary">Profile</a>
-    <a class="display-3 header-primary">Settings</a>    
+    <a 
+      *ngIf="isAuth$ | async"
+      routerLink="/profile"
+      class="display-3 header-primary">
+      Profile
+    </a>
+    <a 
+      class="display-3 header-primary">
+      Settings
+    </a>
+    <a
+      *ngIf="isAuth$ | async"
+      class="display-3 header-primary">
+      Logout
+    </a>
   </ul>
 </div>

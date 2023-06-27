@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store'; 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { TaskModel, TaskDisplayContainer } from '../task.model';
 
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskSync } from '../store/task.actions';
+import { selectIterationId } from 'src/app/iteration/store/iteration.reducer';
 
 @Component({
   selector: 'task-board',
@@ -19,6 +20,8 @@ import { TaskSync } from '../store/task.actions';
 export class TaskBoardComponent implements OnInit, OnDestroy {
   @Input() isLoading: boolean | null = false
   @Input() tasksObs!: Observable<Array<TaskModel>>
+  @Input() mode: 'backlog' | 'iteration' = 'backlog'
+  @Input() iterationId!: number 
 
   boardContainers: Array<TaskDisplayContainer> = [
     {
@@ -59,7 +62,7 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
         const titles = this.boardContainers.map(container => container.title)
 
         for (const title of titles) {       
-          const containerData: Array<{ disabled: boolean, content: TaskModel }> = 
+          let containerData: Array<{ disabled: boolean, content: TaskModel }> = 
             tasks
               .filter(task => task.status.status === title)
               .sort((tA: TaskModel, tB: TaskModel) => { 
@@ -72,6 +75,10 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
                 content: task
               }) )
         
+          // if (this.mode === 'iteration') {
+          //   containerData = containerData.filter(obj => obj.content.iterationId === this.iterationId)
+          // }
+
           const cid = this.boardContainers.findIndex(container => container.title === title) 
           this.boardContainers[cid].data = containerData;  
         }

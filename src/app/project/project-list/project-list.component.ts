@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 
@@ -15,7 +15,7 @@ import { ProjectItemComponent } from './project-item/project-item.component';
   templateUrl: 'project-list.component.html' 
 })
 export class ProjectListComponent {
-  projects$ = this.store.select(selectProjects);
+  @Input() projects$ = this.store.select(selectProjects);
   isAuthenticated$ = this.store.select(selectIsAuthenticated);
   userId$ = this.store.select(selectUserId)
 
