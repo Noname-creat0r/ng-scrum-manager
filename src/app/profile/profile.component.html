@@ -1,0 +1,46 @@
+<div class="container profile">
+  
+  <div class="profile__title mt-2">
+    <h3 class="display-3 profile__title__name"> {{ (profile$ | async)?.name }} </h3>
+    <button class="profile__title__control mx-2 btn">
+      <img 
+        src="../../assets/icons/pencil-square.svg"
+        alt="pensil" 
+        class="navbar__icon--medium task-board__container__item__options__option">
+    </button>
+  </div>
+
+  <p class="profile__email "> 
+    {{ (profile$ | async)?.email }}
+  </p>
+
+  <div class="profile__controls">
+    <button class="btn btn-lg btn-outline-dark">
+      New project
+    </button>
+  </div>
+
+  <ul class="nav nav-tabs profile__tabs">
+    <li class="nav-item project__tabs__tab">
+      <button 
+        (click)="onSwitchMode()"
+        [ngClass]="mode === 'public' ? 'active' : '' "
+        class="nav-link">Public</button>
+    </li>
+    <li class="nav-item project__tabs__tab">
+      <button
+        (click)="onSwitchMode()"
+        [ngClass]="mode === 'private' ? 'active' : '' "
+        class="nav-link">Private</button>
+    </li>
+  </ul>
+
+  <project-list
+    *ngIf="mode === 'public'"
+    [projects$]="publicProjects$" />
+
+  <project-list
+    *ngIf="mode === 'private'"
+    [projects$]="privateProjects$"/>
+
+</div>
