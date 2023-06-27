@@ -1,0 +1,19 @@
+.profile {
+  &__title {
+    display: flex;
+    flex-direction: row;
+
+    &__name {
+
+    }
+
+    &__control {
+      align-self: center;
+    }
+  }
+
+  &__controls {
+    margin: 2rem auto;
+    text-align: center;
+  }
+}

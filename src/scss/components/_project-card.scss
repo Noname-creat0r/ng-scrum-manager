@@ -13,7 +13,10 @@
     background-image: linear-gradient(to bottom right, $color-soft-red, white);
     height: 5rem;
     overflow: scroll;
-
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &__footer {
@@ -24,4 +27,5 @@
     transform: scale(1.2);
     box-shadow: 2px 1px 1px $color-soft-red; 
   }
+
 }
