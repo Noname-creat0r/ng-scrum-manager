@@ -14,5 +14,6 @@ export const IterationActions = createActionGroup({
   source: 'Iteration',
   events: {
     'Selected': props<{ iterationId: number }>(),
+    'Loaded': emptyProps(),
   }
 }); 

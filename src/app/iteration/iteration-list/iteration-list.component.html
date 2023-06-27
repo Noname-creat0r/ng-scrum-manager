@@ -1,11 +1,15 @@
-<div>
-  <div class="iteration-list">
+<div class="d-flex justify-content-around">
+  <div class="iteration-list mx-2 w-25">
     <iteration-item 
       *ngFor="let iteration of (iterations$ | async)"
+      [selected]="(iterationId$ | async)! === iteration.id"
       [iteration]="iteration"/> 
   </div>
   <task-board
+    class="w-50"
+    [mode]="'iteration'"
+    [iterationId]="(iterationId$ | async)!"
     [tasksObs]="tasks$"
-    [isLoading]="isLoadingTasks$ | async"/>
+    [isLoading]="isLoadingIterations$ | async"/>
 </div>
 

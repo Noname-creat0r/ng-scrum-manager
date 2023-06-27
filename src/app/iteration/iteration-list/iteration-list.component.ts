@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { filter, Observable, Subject, takeUntil } from 'rxjs';
 
-import { selectIterationId, selectIterations } from '../store/iteration.reducer';
-import { selectIterationTasks, selectLoading } from 'src/app/task/store/task.reducer';
+import { selectIterationId, selectIterations, selectLoading } from '../store/iteration.reducer';
+import { selectIterationTasks, selectTasks } from 'src/app/task/store/task.reducer';
 
 import { TaskModel } from 'src/app/task/task.model';
 import { IterationModel } from '../iteration.model';
 
 import { IterationItemComponent } from './iteration-item/iteration-item.component';
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
+import { IterationService } from '../iteration.service';
 
 @Component({
   selector: 'iteration-list',
@@ -19,19 +20,24 @@ import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component
   templateUrl: 'iteration-list.component.html' 
 })
 export class IterationListComponent implements OnInit, OnDestroy{
-  iterations$: Observable<Array<IterationModel>> = this.store.select(selectIterations)
-  tasks$!: Observable<Array<TaskModel>>
-  isLoadingTasks$!: Observable<boolean | null>
+  private componentDestroyed$ = new Subject<void>()
 
-  constructor(private readonly store: Store) {}
+  iterations$ = this.store.select(selectIterations)
+  iterationId$ = this.store.select(selectIterationId)
+  tasks$ = this.store.select(selectTasks)
+  //isLoadingTasks$ = this.store.select(selectLoading)
+  isLoadingIterations$ = this.store.select(selectLoading)
+
+  constructor(private readonly store: Store, private iterationService: IterationService){}
 
   ngOnInit() {
-    console.log('Hello')
-    this.isLoadingTasks$ = this.store.select(selectLoading)
-    this.store.select(selectIterationId).subscribe(id => {
-      this.tasks$ = this.store.select(selectIterationTasks(id ? +id : -1 ))   
+    this.iterationId$.pipe(takeUntil(this.componentDestroyed$)).subscribe(id => {
+      this.tasks$ = this.store.select(selectIterationTasks(id!)).pipe(takeUntil(this.componentDestroyed$))
     })
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.componentDestroyed$.next()
+    this.componentDestroyed$.complete()
+  }
 }

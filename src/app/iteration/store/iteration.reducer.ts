@@ -6,14 +6,14 @@ import { IterationActions, LoadingIterationsActions } from "./iteration.actions"
 
 interface State {
   iterations: Array<IterationModel>,
-  iterationId: string | undefined,
+  iterationId: number | undefined,
   loading: boolean;
   error: string | null;
 };
 
 const initialState: State = {
   iterations: new Array<IterationModel>(),
-  iterationId: getStorageItem('iterationId'),
+  iterationId: parseInt(getStorageItem('iterationId')!),
   loading: false, 
   error: null,
 }
@@ -23,13 +23,17 @@ export const iterationFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(IterationActions.selected, (state, payload) => {
-      setStorageItem('iterationId', payload.iterationId.toString())
+      setStorageItem('iterationId', payload.iterationId)
       
       return {
         ...state,
-        iterationId: getStorageItem('iterationId')
+        loading: true,
+        iterationId: parseInt(getStorageItem('iterationId')!)
       }
     }),
+    on(IterationActions.loaded, (state) => ({
+      ...state, loading: false
+    })),
 
     on(LoadingIterationsActions.initialized, (state) => ({ 
       ...state,
@@ -54,7 +58,7 @@ export const selectIteration = () =>
   createSelector(selectIterationState, (state) => {
     return state
       .iterations
-      .find(iteration => iteration.id === parseInt(state.iterationId !== undefined ? state.iterationId : '' ))
+      .find(iteration => iteration.id === state.iterationId!)
   })
 
 export const {
