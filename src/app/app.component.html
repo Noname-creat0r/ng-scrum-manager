@@ -1,7 +1,7 @@
 <app-header></app-header>
-<main>
+<main [@routeAnimations]="prepareRoute(outlet)">
   <app-content-container>
-    <router-outlet></router-outlet>
+    <router-outlet #outlet="outlet"></router-outlet>
   </app-content-container>
 </main>
 <app-footer></app-footer>

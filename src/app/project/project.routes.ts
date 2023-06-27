@@ -10,14 +10,17 @@ export const projectPaths = {
 
 export const PROJECT_ROUTES: Routes = [
   { 
-    path: '', 
+    path: '',
     loadComponent: () => import('./project-list/project-list.component')
-      .then(mod => mod.ProjectListComponent) 
+      .then(mod => mod.ProjectListComponent),
+     data: { animation: 'isLeft' }
   },
   { 
     path: projectPaths.project,
     loadComponent: () => import('./project-page/project-page.component')
-      .then(mod => mod.ProjectPageComponent)
+      .then(mod => mod.ProjectPageComponent),
+    data: { animation: 'isLeft' }
+    
   },
   { path: '**', redirectTo: appPaths.notFound }
 ]

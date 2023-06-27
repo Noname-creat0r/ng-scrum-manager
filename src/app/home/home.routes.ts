@@ -11,6 +11,6 @@ export const homePaths = {
 export const homeRoutes = { }
 
 export const HOME_ROUTES: Routes = [
-   { path: homePaths.base, component: HomeComponent },
+   { path: '', component: HomeComponent, data: { animation: 'isRight' }  },
    { path: '**', redirectTo: appPaths.notFound}
 ]
