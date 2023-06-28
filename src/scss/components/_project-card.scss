@@ -6,14 +6,21 @@
   transition: ease-out .2s all;
 
   &__header {
+    display: flex;
+    justify-content: space-between;
     background-image: linear-gradient(to left top, $color-blue, $color-pink);
+
+    &__delete {
+      cursor: pointer;
+    }
   }
 
   &__body {
     background-image: linear-gradient(to bottom right, $color-soft-red, white);
     height: 5rem;
     overflow: scroll;
-    
+    cursor: pointer;
+
     &::-webkit-scrollbar {
       display: none;
     }
