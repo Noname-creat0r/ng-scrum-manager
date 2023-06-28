@@ -9,15 +9,15 @@ export interface ProjectModel {
     title: string,
   }],
   authorId?: number,
-  author: {
+  author?: {
     id: number,
     name: string,
     email: string,
     createdAt: Date,
   },
   iterations?: Array<IterationModel>,
-  createdAt: Date,
-  updatedAt: Date,
+  createdAt?: Date,
+  updatedAt?: Date,
 }
 
 export interface ProjectSuccess {

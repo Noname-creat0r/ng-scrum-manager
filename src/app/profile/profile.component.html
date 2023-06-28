@@ -11,11 +11,13 @@
   </div>
 
   <p class="profile__email "> 
-    {{ (profile$ | async)?.email }}
+    <i> {{ (profile$ | async)?.email }} </i>
   </p>
 
   <div class="profile__controls">
-    <button class="btn btn-lg btn-outline-dark">
+    <button 
+      (click)="onAddProject()"
+      class="btn btn-lg btn-outline-dark">
       New project
     </button>
   </div>
@@ -35,12 +37,22 @@
     </li>
   </ul>
 
-  <project-list
-    *ngIf="mode === 'public'"
-    [projects$]="publicProjects$" />
+  <div *ngIf="!(isLoading$ | async); else loading">
+    <project-list
+      *ngIf="mode === 'public'"
+      [projects$]="publicProjects$"
+      [controls]="true"/>
 
-  <project-list
-    *ngIf="mode === 'private'"
-    [projects$]="privateProjects$"/>
-
+    <project-list
+      *ngIf="mode === 'private'"
+      [projects$]="privateProjects$"
+      [controls]="true"/>
+  </div>
+  <ng-template #loading>
+    <img 
+      class="nabar__icon--small"
+      width="20rem"
+      height="20rem"
+      src="../../assets/animated/double-ring-1s-197px.svg">
+  </ng-template>
 </div>

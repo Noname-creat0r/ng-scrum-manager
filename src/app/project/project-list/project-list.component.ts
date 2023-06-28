@@ -16,6 +16,8 @@ import { ProjectItemComponent } from './project-item/project-item.component';
 })
 export class ProjectListComponent {
   @Input() projects$ = this.store.select(selectProjects);
+  @Input() controls = false
+
   isAuthenticated$ = this.store.select(selectIsAuthenticated);
   userId$ = this.store.select(selectUserId)
 
