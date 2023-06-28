@@ -1,11 +1,17 @@
 <div 
-  class="card project-card my-2"
-  [routerLink]="['/projects/' + project.id]" 
-  (click)="onOpenProjectItem(project.id)"> 
+  class="card project-card my-2"> 
   <div class="card-header project-card__header">
     #{{ project.id }} - {{ project.title }}
+    <img
+      *ngIf="controls"
+      (click)="onDeleteProject()"
+      class="navbar__icon--small project-card__header__delete" 
+      src="../../../../assets/icons/trash.svg">
   </div>
-  <div class="card-body project-card__body">
+  <div 
+    class="card-body project-card__body"
+    [routerLink]="['/projects/' + project.id]" 
+    (click)="onOpenProjectItem(project.id)">
     <p>{{ project.description }}</p>      
   </div>
   <div class="card-footer project-card__footer">

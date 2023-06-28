@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { ProjectModel } from '../../project.model';
-import { ProjectActions } from '../../store/project.actions';
+import { DeletingProjectActions, ProjectActions } from '../../store/project.actions';
 
 @Component({
   selector: 'project-item',
@@ -14,11 +14,16 @@ import { ProjectActions } from '../../store/project.actions';
 })
 export class ProjectItemComponent {
   @Input() project!: ProjectModel
- 
+  @Input() controls!: boolean 
+
   constructor(private readonly store: Store) {}
 
   onOpenProjectItem(projectId: number) {
     this.store.dispatch(ProjectActions.selected({ projectId }))
+  }
+
+  onDeleteProject() {
+    this.store.dispatch(DeletingProjectActions.initialized({ id: this.project.id }))
   }
    
 }
