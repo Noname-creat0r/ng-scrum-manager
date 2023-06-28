@@ -1,0 +1,80 @@
+<div class="modal-content">
+  <div class="modal-header">
+   <h2 
+      class="modal-title fs-5" 
+      id="staticBackdropLabel">
+      New Project
+    </h2>
+  </div>
+  <div class="modal-body">
+    <form
+      [formGroup]="projectForm"
+      (ngSubmit)="onSubmit()">
+
+        <div class="form-floating mb-3">
+          <input 
+            type="text"
+            class="form-control"
+            id="titleInput"
+            placeholder="accomplish something great"
+            formControlName="title"
+            required
+            [ngClass]="{
+              'is-invalid': !projectForm.get('title')?.valid 
+                && projectForm.get('title')?.touched,
+              'is-valid': projectForm.get('title')?.valid
+            }" >
+          <label for="titleInput">Title:</label>
+          <div class="invalid-feedback">
+            Enter a propper title, please.
+          </div>
+        </div> 
+
+        <div class="form-floating mb-3 has-validation">
+          <textarea 
+            class="form-control"
+            id="descriptionInput"
+            placeholder="a little bit about the project"
+            formControlName="description"
+            required
+            [ngClass]="{
+              'is-invalid': !projectForm.get('description')?.valid 
+                && projectForm.get('description')?.touched,
+              'is-valid': projectForm.get('description')?.valid
+            }">
+          </textarea>
+          <label for="descriptionInput">Description:</label>
+          <div class="invalid-feedback">
+            Describe the project a little.
+          </div>
+        </div>
+      
+        <div class="form-check mb-3 has-validation">
+          <input 
+            type="checkbox"
+            class="form-check-input"
+            id="privateInput"
+            value="false"
+            placeholder="Is it private?"
+            formControlName="private">
+          <label class="form-check-label" for="privateInput">Private</label>
+        </div>
+     
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-success "
+      (click)="onSubmit()"
+      [disabled]="!projectForm.valid">
+      Add
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-secondary " 
+      (click)="activeModal.close()">
+      Close
+    </button>
+  </div>
+</div>
