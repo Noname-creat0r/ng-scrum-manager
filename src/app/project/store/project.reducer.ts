@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
-import { LoadingProjectsActions, ProjectActions } from "./project.actions";
+import { AddingProjectActions, DeletingProjectActions, LoadingProjectsActions, ProjectActions } from "./project.actions";
 import { ProjectModel } from "../project.model";
 import { getStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
 
@@ -47,6 +47,42 @@ export const projectFeature = createFeature({
       projects: payload.projects 
     })),
 
+    on(AddingProjectActions.initialized, (state, payload) => ({
+      ...state,
+      loading: true,
+    })),
+    on(AddingProjectActions.succeeded, (state, payload) => ({
+      ...state,
+      projects: [...state.projects, payload.project], 
+      error: null,
+      loading: false
+    })),
+    on(AddingProjectActions.failed, (state, payload) => ({
+      ...state,
+      error: payload.error,
+      loading: false
+    })),
+    
+    on(DeletingProjectActions.initialized, (state, paylod) => ({
+      ...state,
+      loading: true
+    })),
+    on(DeletingProjectActions.succeeded, (state, payload) => {
+      const delProjId = payload.id
+      const updProjects = state.projects.filter(project => project.id !== delProjId)
+      
+      return {
+        ...state,
+        error: null,
+        loading: false,
+        projects: updProjects
+      }
+    }),
+    on(DeletingProjectActions.failed, (state, payload) => ({
+      ...state,
+      error: payload.error,
+      loading: false
+    })),
   ),
 });
 

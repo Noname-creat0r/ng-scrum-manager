@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { map, exhaustMap, catchError } from "rxjs/operators";
 
 import { ProjectService } from "../project.service";
-import { LoadingProjectsActions } from "./project.actions";
+import { AddingProjectActions, DeletingProjectActions, LoadingProjectsActions } from "./project.actions";
 
 @Injectable()
 export class ProjectEffects {
@@ -19,6 +19,30 @@ export class ProjectEffects {
         )
       )
     ) 
+  );
+
+  addProject$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AddingProjectActions.initialized),
+      exhaustMap(action => this.projectService.addProject(action.project)
+        .pipe(
+          map(res => AddingProjectActions.succeeded({ project: res.project })),
+          catchError(error => of(AddingProjectActions.failed({ error})))
+        )
+      )
+    )
+  );
+
+  deleteProject$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(DeletingProjectActions.initialized),
+      exhaustMap(action => this.projectService.deleteProject(action.id)
+        .pipe(
+          map(res => DeletingProjectActions.succeeded({ id: res.id, message: res.message })),
+          catchError(error => of(DeletingProjectActions.failed({ error })))
+        )
+      )
+    )
   );
 
   constructor(

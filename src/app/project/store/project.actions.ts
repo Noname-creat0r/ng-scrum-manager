@@ -15,4 +15,31 @@ export const ProjectActions = createActionGroup({
   events: {
     'Selected': props<{ projectId: number }>(),
   }
-}); 
+});
+
+export const AddingProjectActions = createActionGroup({
+  source: 'Project - adding',
+  events: {
+    'Initialized': props<{ project: ProjectModel }>(),
+    'Succeeded': props<{ project: ProjectModel }>(),
+    'Failed': props<{ error: string }>(),
+  }
+})
+
+export const EditingProjectActions = createActionGroup({
+  source: 'Project - editing',
+  events: {
+    'Initialized': props<{ project: ProjectModel }>(),
+    'Succeeded': props<{ project: ProjectModel }>(),
+    'Failed': props<{ error: string }>(),
+  }
+})
+
+export const DeletingProjectActions = createActionGroup({
+  source: 'Project - delete',
+  events: {
+    'Initialized': props<{ id: number }>(),
+    'Succeeded': props<{ id: number, message: string }>(),
+    'Failed': props<{ error: string}>(),
+  }
+});
