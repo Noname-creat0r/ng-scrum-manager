@@ -49,7 +49,7 @@
         New {{ mode === 'backlog' ? 'task': mode}} 
       </button>
     </div>
-   
+  
     <task-board 
       *ngIf="mode === 'backlog'"
       [tasksObs]="tasks$"

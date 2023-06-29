@@ -6,6 +6,7 @@ export const TaskActions = createActionGroup({
   events: {
     'Selected': props<{ taskId: string }>(),
     'Deselected': emptyProps(),
+    'Iteration formed': props<{ iterationId: number}>(),
     'Moved in container': props<{ bContainerPos: number }>(),
     'Moved to iteration': props<{ iterationId: number, taskId?: number }>(),
   }

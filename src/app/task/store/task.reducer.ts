@@ -6,6 +6,7 @@ import { getStorageItem, removeStorageItem, setStorageItem } from "src/app/share
 
 interface State {
   tasks: Array<TaskModel>;
+  iterationTasks: Array<TaskModel>;
   taskId: string | undefined;
   loading: boolean;
   error: string | null;
@@ -13,6 +14,7 @@ interface State {
 
 const initialState: State = {
   tasks: new Array<TaskModel>(),
+  iterationTasks: new Array<TaskModel>(),
   taskId: getStorageItem('taskId'), 
   loading: false, 
   error: null,
@@ -40,6 +42,10 @@ export const taskFeature = createFeature({
         taskId: undefined
       }
     }),
+    on(TaskActions.iterationFormed, (state, payload) => ({
+      ...state,
+      iterationTasks: [...state.tasks.filter(task => task.iterationId === payload.iterationId)]
+    })), 
 
     on(LoadingTasksActions.initialized, (state) => ({ 
       ...state,
@@ -116,11 +122,6 @@ export const taskFeature = createFeature({
   ),
 });
 
-export const selectIterationTasks = (iterationId: number) => 
-  createSelector(selectTasks, (tasks) => {
-    return tasks.filter(task => task.iterationId === iterationId)
-  })
-
 export const selectTask = () =>
   createSelector(selectTaskState, (state) => {
     return state.tasks.find(task => task.id === (state.taskId ? +state.taskId : '')) 
@@ -131,6 +132,7 @@ export const {
   reducer,
   selectTaskState,
   selectTasks,
+  selectIterationTasks,
   selectTaskId,
   selectLoading,
   selectError,

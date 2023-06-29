@@ -12,6 +12,7 @@ import { IterationModel } from '../iteration.model';
 import { IterationItemComponent } from './iteration-item/iteration-item.component';
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
 import { IterationService } from '../iteration.service';
+import { TaskActions } from 'src/app/task/store/task.actions';
 
 @Component({
   selector: 'iteration-list',
@@ -24,15 +25,15 @@ export class IterationListComponent implements OnInit, OnDestroy{
 
   iterations$ = this.store.select(selectIterations)
   iterationId$ = this.store.select(selectIterationId)
-  tasks$ = this.store.select(selectTasks)
+  tasks$ = this.store.select(selectIterationTasks)
   //isLoadingTasks$ = this.store.select(selectLoading)
   isLoadingIterations$ = this.store.select(selectLoading)
 
-  constructor(private readonly store: Store, private iterationService: IterationService){}
+  constructor(private readonly store: Store){}
 
   ngOnInit() {
     this.iterationId$.pipe(takeUntil(this.componentDestroyed$)).subscribe(id => {
-      this.tasks$ = this.store.select(selectIterationTasks(id!)).pipe(takeUntil(this.componentDestroyed$))
+      this.store.dispatch(TaskActions.iterationFormed({ iterationId: id! }))
     })
   }
 
