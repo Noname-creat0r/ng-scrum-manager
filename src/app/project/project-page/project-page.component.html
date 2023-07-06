@@ -45,18 +45,24 @@
     <div class="project__controls">
       <button 
         class="btn btn-lg btn-outline-dark" 
-        (click)="onAddTask()"> 
+        (click)="onAdd()"> 
         New {{ mode === 'backlog' ? 'task': mode}} 
       </button>
     </div>
   
-    <task-board 
-      *ngIf="mode === 'backlog'"
-      [tasksObs]="tasks$"
-      [isLoading]="isLoadingTasks$ | async"/> 
+    <ng-template [ngIf]="mode === 'backlog'">
+      <task-board 
+        *ngIf="(tasks$ | async)?.length else emptyBacklog"
+        [tasksObs]="tasks$"
+        [isLoading]="isLoadingTasks$ | async"/> 
+    </ng-template>
+
+    <ng-template #emptyBacklog>
+      <h2 class='display-5 text-center'>Backlog is empty...</h2>
+    </ng-template>
     
     <iteration-list 
       *ngIf="mode === 'iteration'"/>
-  
+
 </div>
 

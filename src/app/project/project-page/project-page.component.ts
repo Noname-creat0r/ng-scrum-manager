@@ -9,7 +9,7 @@ import { selectTasks, selectLoading } from 'src/app/task/store/task.reducer';
 
 import { LoadingProjectsActions } from '../store/project.actions';
 import { LoadingTasksActions, TaskActions } from 'src/app/task/store/task.actions';
-import { LoadingIterationsActions } from 'src/app/iteration/store/iteration.actions';
+import { IterationActions, LoadingIterationsActions } from 'src/app/iteration/store/iteration.actions';
 
 import { TaskModel } from 'src/app/task/task.model';
 import { ProjectModel } from '../project.model';
@@ -17,11 +17,13 @@ import { ProjectModel } from '../project.model';
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
 import { TaskControlComponent } from 'src/app/task/task-control/task-control.component';
 import { IterationListComponent } from 'src/app/iteration/iteration-list/iteration-list.component';
+import { IterationControlComponent } from 'src/app/iteration/iteration-control/iteration-control.component';
 
 @Component({
   selector: 'project-page',
   standalone: true,
-  imports: [CommonModule, TaskBoardComponent, TaskControlComponent, IterationListComponent ],
+  imports: [CommonModule, TaskBoardComponent, TaskControlComponent, 
+    IterationControlComponent, IterationListComponent ],
   templateUrl: 'project-page.component.html'
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
@@ -58,9 +60,14 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     else this.mode = 'backlog'
   }
 
-  onAddTask() {
-    this.store.dispatch(TaskActions.deselected())
-    this.modalService.open(TaskControlComponent)
+  onAdd() {
+    
+    if (this.mode === 'backlog') { 
+      this.store.dispatch(TaskActions.deselected())
+      this.modalService.open(TaskControlComponent)
+    } else {
+      this.store.dispatch(IterationActions.deselected())
+      this.modalService.open(IterationControlComponent)
+    }
   }
-
 } 
