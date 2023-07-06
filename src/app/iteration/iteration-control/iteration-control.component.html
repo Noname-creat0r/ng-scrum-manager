@@ -1,0 +1,69 @@
+<div class="modal-content">
+  <div class="modal-header">
+   <h2 
+      class="modal-title fs-5" 
+      id="staticBackdropLabel">
+      New Iteration
+    </h2>
+  </div>
+  <div class="modal-body">
+    <form
+      [formGroup]="iterationForm"
+      (ngSubmit)="onSubmit()">
+
+        <div class="form-floating mb-3">
+          <input 
+            type="text"
+            class="form-control"
+            id="titleInput"
+            placeholder="accomplish something great"
+            formControlName="title"
+            required
+            [ngClass]="{
+              'is-invalid': !iterationForm.get('title')?.valid 
+                && iterationForm.get('title')?.touched,
+              'is-valid': iterationForm.get('title')?.valid
+            }" >
+          <label for="titleInput">Title:</label>
+          <div class="invalid-feedback">
+            Enter a propper title, please.
+          </div>
+        </div> 
+
+        <div class="form-floating mb-3 has-validation">
+          <textarea 
+            class="form-control"
+            id="descriptionInput"
+            placeholder="a little bit about the iteration"
+            formControlName="description"
+            required
+            [ngClass]="{
+              'is-invalid': !iterationForm.get('description')?.valid 
+                && iterationForm.get('description')?.touched,
+              'is-valid': iterationForm.get('description')?.valid
+            }">
+          </textarea>
+          <label for="descriptionInput">Description:</label>
+          <div class="invalid-feedback">
+            Describe the iteration a little.
+          </div>
+        </div>
+     
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-success "
+      (click)="onSubmit()"
+      [disabled]="!iterationForm.valid">
+      {{ mode }}
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-secondary " 
+      (click)="activeModal.close()">
+      Close
+    </button>
+  </div>
+</div>
