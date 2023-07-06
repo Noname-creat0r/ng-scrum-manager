@@ -3,10 +3,10 @@ export interface TaskModel {
   title: string,
   description: string,
   storyPoints: number,
-  iterationId?: number,
+  iterationId?: number | null,
   projectId?: number,
   bContainerPos: number,
-  iContainerPos?: number,
+  iContainerPos: number,
   status: {
     status: string
   }
@@ -22,5 +22,12 @@ export interface TaskDisplayContainer {
 
 export interface TaskSuccess {
   tasks: Array<TaskModel>
+}
+
+export interface TaskPositionItem {
+  id: number,
+  bContainerPos?: number,
+  iContainerPos?: number,
+  status: string
 }
 
