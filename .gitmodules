@@ -1,0 +1,3 @@
+[submodule "scrum-manager-server"]
+	path = scrum-manager-server
+	url = https://github.com/Noname-creat0r/scrum-manager-server
