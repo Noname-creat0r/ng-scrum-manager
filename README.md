@@ -2,26 +2,33 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
-## Development server
+## Startup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1) Run `npm start` in `/scrum-manager-server` project folder for node server initialization.
+2) Run `ng serve` for a dev server in the root of the project folder.
+3) Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Tasks 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- User authentication (Signin/Signup)
+- C/D projects
+- C/D project iterations
+- Display scrum-board with tasks for choosen iteration, tasks may have 3 statuses (TODO/DOING/DONE)
+- Implement project backlog
+- C/U/D tasks in backlog or iteration containers (change status, set story points, title, description)
+- Move around tasks from backlog to iteration and backwise.
 
-## Build
+`*CRUD - Create Read Update Delete`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Libs
+- Front: Angular core (standalone components only), NgRx, RxJs, ng-bootstrap, ngx/env-builder
+- Server: Node, Express, Sequelize, jwt, bcryptjs, body-parser, dotenv
+- DB: sqlite3, Sequelize-cli
 
-## Running unit tests
+## DB 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- There are migrations, seeds and models for each logic entity of the project.
+- Some seeds are randomly generated!
+- All seeded user's passwords are initialy hashed and salted. Default value for each user password = `123456789`
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[Schema](https://github.com/Noname-creat0r/ng-scrum-manager/assets/72403887/0e8522b5-fc30-490a-a577-00e8134a001d)
