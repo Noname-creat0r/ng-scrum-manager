@@ -1,8 +1,9 @@
 <div
   [ngStyle]="{'min-height': '2rem'}"
   cdkDropList
-  [cdkDropListData]="container.data"
-  (cdkDropListDropped)="drop($event)">
+  [cdkDropListData]="{ content: container.data, status: container.title}"
+  (cdkDropListDropped)="drop($event)"
+  (cdkDropListExited)="exit($event)">
   <div *ngIf="!isLoading; else loadingTasks">
     <div 
       class="task-board__container__item fadeIn" 
@@ -33,4 +34,4 @@
     </div>
   </ng-template>
  
-  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +22,7 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
   @Input() tasksObs!: Observable<Array<TaskModel>>
   @Input() mode: 'backlog' | 'iteration' = 'backlog'
   @Input() iterationId!: number 
-
+  
   boardContainers: Array<TaskDisplayContainer> = [
     {
       title: "Todo",
@@ -40,20 +40,32 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
 
   constructor(private readonly store: Store) {}
 
+  // sync with NgRx 
   syncContainers() {
     const positionsContainer = []
     for (const container of this.boardContainers) {
       const conStatus = container.title 
-      const conPosData = container.data.map(model => ({
-        id: model.content.id,
-        bContainerPos: container.data.findIndex(sModel => sModel.content.id === model.content.id),
-        status: conStatus
-      })) 
+      const conPosData = container.data.map(model => { 
+        let posObj: any = {
+          id: model.content.id,
+          status: conStatus
+        }
+
+        if (this.mode === 'iteration') {
+          posObj['iContainerPos'] = container.data.findIndex(sModel => sModel.content.id === model.content.id) 
+          posObj['bContainerPos'] = model.content.bContainerPos
+        } else { 
+          posObj['bContainerPos'] = container.data.findIndex(sModel => sModel.content.id === model.content.id) 
+          posObj['iContainerPos'] = model.content.iContainerPos
+        }
+
+        return posObj  
+      }) 
+
       positionsContainer.push(...conPosData)
     }
       
     this.store.dispatch(TaskSync.initialized({ positionsContanier: positionsContainer }))
-
   }
 
   ngOnInit() {
@@ -65,10 +77,16 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
           let containerData: Array<{ disabled: boolean, content: TaskModel }> = 
             tasks
               .filter(task => task.status.status === title)
-              .sort((tA: TaskModel, tB: TaskModel) => { 
-                if (tA.bContainerPos > tB.bContainerPos) return 1;
-                else if (tA.bContainerPos < tB.bContainerPos) return -1;
-                else return 0;
+              .sort((tA: TaskModel, tB: TaskModel) => {
+                if (this.mode === 'iteration') {
+                  if (tA.iContainerPos > tB.iContainerPos) return 1;
+                  else if (tA.iContainerPos < tB.iContainerPos) return -1;
+                  else return 0;
+                } else {
+                  if (tA.bContainerPos > tB.bContainerPos) return 1;
+                  else if (tA.bContainerPos < tB.bContainerPos) return -1;
+                  else return 0;
+                }
               })
               .map(task => ({
                 disabled: false,
@@ -83,7 +101,6 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
           this.boardContainers[cid].data = containerData;  
         }
       }
-
     })
   }
 
