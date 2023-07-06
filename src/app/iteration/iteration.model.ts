@@ -3,5 +3,5 @@ export interface IterationModel {
   title: string,
   description: string,
   projectId?: number,
-  createdAt: Date
+  createdAt?: Date
 }

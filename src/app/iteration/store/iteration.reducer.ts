@@ -2,7 +2,7 @@ import { createFeature, createReducer, createSelector, on, select } from "@ngrx/
 import { getStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
 
 import { IterationModel } from "../iteration.model";
-import { IterationActions, LoadingIterationsActions } from "./iteration.actions";
+import { IterationActions, AddingIterationActions, EditingIterationActions, LoadingIterationsActions, DeletingIterationActions } from "./iteration.actions";
 
 interface State {
   iterations: Array<IterationModel>,
@@ -31,6 +31,10 @@ export const iterationFeature = createFeature({
         iterationId: parseInt(getStorageItem('iterationId')!)
       }
     }),
+    on(IterationActions.deselected, (state, payload) => ({
+      ...state,
+      iterationId: undefined
+    })),
     on(IterationActions.loaded, (state) => ({
       ...state, loading: false
     })),
@@ -50,7 +54,54 @@ export const iterationFeature = createFeature({
       loading: false,
       iterations: payload.iterations 
     })),
+    
+    on(AddingIterationActions.initialized, (state, payload) => ({
+      ...state,
+      loading: true
+    })),
+    on(AddingIterationActions.failed, (state, payload) => ({
+      ...state,
+      error: payload.error,
+      loading: false
+    })),
+    on(AddingIterationActions.succeeded, (state, payload) => ({
+      ...state,
+      loading: false,
+      error: null,
+      iterations: [...state.iterations, payload.iteration]
+    })),
 
+    on(EditingIterationActions.initialized, (state, payload) => ({
+      ...state,
+    })),
+    on(EditingIterationActions.failed, (state, payload) => ({
+      ...state,
+      error: payload.error,
+      loading: false
+    })),
+    on(EditingIterationActions.succeeded, (state, payload) => {
+      const updIterationId = state.iterations.findIndex(iteration => iteration.id === payload.iteration.id )
+      const updIterations = [...state.iterations]
+      updIterations[updIterationId] = payload.iteration
+
+      return {
+        ...state,
+        erorr: null,
+        loading: false,
+        iterations: updIterations
+      }
+    }),
+
+    on(DeletingIterationActions.succeeded, (state, payload) => {
+      const updIterations = [...state.iterations.filter(iter => iter.id !== payload.id)] 
+      
+      return {
+        ...state,
+        error: null,
+        loading: false,
+        iterations: updIterations
+      }
+    })
   ),
 });
 

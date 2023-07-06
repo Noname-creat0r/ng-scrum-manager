@@ -16,8 +16,6 @@ export class IterationService {
     'Access-Control-Allow-Origin': process.env['NG_APP_BASE_URL'],
   });
 
-  iterationTasks: TaskModel[] | undefined = undefined
-
   constructor(
     private http: HttpClient,
     private readonly store: Store) { }
@@ -29,5 +27,27 @@ export class IterationService {
       { ...this.baseHeaders }
     );
   }  
+  
+  addIteration(iteration: IterationModel): Observable<{ iteration: IterationModel, message: string }> {
+    return this.http.post<{ iteration: IterationModel, message: string }>(
+      process.env['NG_APP_BASE_URL'] + `/iteration`,
+      { iteration },
+      { ...this.baseHeaders }
+    );
+  }
 
+  editIteration(iteration: IterationModel): Observable<{ iteration: IterationModel, message: string }> {
+    return this.http.put<{ iteration: IterationModel, message: string }>(
+      process.env['NG_APP_BASE_URL'] + `/iteration`,
+      { iteration }, 
+      { ...this.baseHeaders }
+    );
+  }
+
+  deleteIteration(iterationId: number): Observable<{ id: number, message: string }> {
+    return this.http.delete<{ id: number, message: string }>(
+      process.env['NG_APP_BASE_URL'] + `/iteration?id=` + iterationId,
+      { ...this.baseHeaders }
+    );
+  }
 }
