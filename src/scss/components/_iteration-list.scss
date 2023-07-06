@@ -35,6 +35,16 @@
       transition: all 250ms;
     }
     
+    &__controls {
+      align-self: center;
+      margin-right: 2rem;
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    
+
     &--selected {
       @extend .iteration-list__item, :hover;
     }
@@ -45,9 +55,6 @@
       cursor: pointer;
     }
 
-    &:active {
-      transform: scale(0.9);
-    }
     
     &:hover &__id {
       font-size: 2rem;
