@@ -1,23 +1,21 @@
 import { createActionGroup, createFeature, emptyProps, props } from "@ngrx/store";
-import { TaskDisplayContainer, TaskModel, TaskSuccess } from "../task.model";
+import { TaskDisplayContainer, TaskModel, TaskPositionItem, TaskSuccess } from "../task.model";
 
 export const TaskActions = createActionGroup({
   source: 'Tasks',
   events: {
     'Selected': props<{ taskId: string }>(),
     'Deselected': emptyProps(),
+    'Moved': props<{ taskId: number, mode: string, newPos: number, status?: string }>(),
     'Iteration formed': props<{ iterationId: number}>(),
-    'Moved in container': props<{ bContainerPos: number }>(),
-    'Moved to iteration': props<{ iterationId: number, taskId?: number }>(),
   }
 })
 
 export const TaskSync = createActionGroup({
   source: 'Tasks - sync',
   events: {
-    'Initialized': props<{ positionsContanier: 
-      Array<{ id: number, bContainerPos: number, status: string}> }>(),
-    'Succeeded': props<{ message: string }>(),
+    'Initialized': props<{ positionsContanier: Array<TaskPositionItem> }>(),
+    'Succeeded': props<{ positionsContanier: Array<TaskPositionItem>, message: string }>(),
     'Failed': props<{ error: string }>(),
   }
 });

@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
-import { TaskActions, AddingTaskActions, DeletingTaskActions, EditingTaskActions,
+import { TaskActions, TaskSync, AddingTaskActions, DeletingTaskActions, EditingTaskActions,
   LoadingTasksActions } from "./task.actions";
 import { TaskModel } from "../task.model";
 import { getStorageItem, removeStorageItem, setStorageItem } from "src/app/shared/utils/storage/local-storage-facade";
@@ -40,6 +40,30 @@ export const taskFeature = createFeature({
       return {
         ...state,
         taskId: undefined
+      }
+    }), 
+    on(TaskSync.succeeded, (state, payload) => {
+      const updTasks: Array<TaskModel> = [...state.tasks]
+      for (const posItem of payload.positionsContanier) {
+        const updTaskId = state.tasks.findIndex(task => task.id === posItem.id)
+        let updTask = { ...state.tasks[updTaskId] }
+        const task: TaskModel = {
+          id: updTask.id,
+          title: updTask.title, 
+          description: updTask.description,
+          storyPoints: updTask.storyPoints,
+          iterationId: updTask.iterationId,
+          projectId: updTask?.projectId,
+          bContainerPos: posItem.bContainerPos!,
+          iContainerPos: posItem.iContainerPos!,
+          status: { status: posItem.status },
+        }
+        updTasks[updTaskId] = task
+      }
+
+      return {
+        ...state,
+        tasks: updTasks
       }
     }),
     on(TaskActions.iterationFormed, (state, payload) => ({
@@ -90,13 +114,17 @@ export const taskFeature = createFeature({
     })),
     on(DeletingTaskActions.succeeded, (state, payload) => {
       const delTaskId = payload.taskId
-      const updTasks = state.tasks.filter(task => task.id !== delTaskId)
+      let updTasks = state.tasks.filter(task => task.id !== delTaskId)
+
+      if (updTasks.length === 0 || state.tasks.length === 1) {
+        updTasks = []
+      }
 
       return {
         ...state,  
         error: null,
         loading: false,
-        tasks: updTasks
+        tasks: updTasks 
       }
     }),
 
@@ -112,10 +140,20 @@ export const taskFeature = createFeature({
       const updTasks = [...state.tasks]
       updTasks[updTaskId] = payload.task
 
+      const isItertaionTask = state.iterationTasks.find(task => task.id === payload.task.id) 
+      let updItTasks = [...state.iterationTasks]
+
+      if (isItertaionTask && payload.task.iterationId === null) {
+        updItTasks = [...state.iterationTasks.filter(task => task.id !== payload.task.id)]
+      } else if (isItertaionTask) {
+        updItTasks[updItTasks.findIndex(task => task.id === isItertaionTask.id)] = payload.task
+      }
+
       return {
         ...state,
         error: null,
-        tasks: updTasks 
+        tasks: updTasks,
+        iterationTasks: updItTasks  
       }
     })
 
