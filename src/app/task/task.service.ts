@@ -14,7 +14,7 @@ export class TaskService {
   
   constructor(private http: HttpClient) { }
 
-  syncTasks(positionsContainer: Array<{ id: number, bContainerPos: number }>) {
+  syncTasks(positionsContainer: Array<{ id: number, bContainerPos?: number, iContainerPos?: number }>) {
     return this.http.put<{ message: string }>(
       process.env['NG_APP_BASE_URL'] + '/task/sync',
         { positionInfo : positionsContainer },

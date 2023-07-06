@@ -46,7 +46,7 @@ export class TaskControlComponent implements OnInit, OnDestroy {
         Validators.maxLength(512)
       ]),
       'status': new FormControl(task?.status.status || null, [Validators.required ]),
-      'iteration': new FormControl(task?.iterationId),
+      'iteration': new FormControl(task?.iterationId || null, [Validators.required]),
       'storyPoints': new FormControl(task?.storyPoints || null, [Validators.required ])
     }); 
   }
@@ -83,15 +83,18 @@ export class TaskControlComponent implements OnInit, OnDestroy {
     this.iterationsSub.unsubscribe()
   }
 
+
   onSubmit() {
+    const iterationId = this.taskForm.get('iteration')?.value 
     const task: TaskModel = {
       id: this.taskId ? +this.taskId : 0,
       title: this.taskForm.get('title')?.value,
       description: this.taskForm.get('description')?.value,
       storyPoints: this.taskForm.get('storyPoints')?.value,
-      iterationId: this.taskForm.get('iteration')?.value ,
+      iterationId:  iterationId === '-1' ? null : iterationId ,
       projectId: this.projectId ? +this.projectId : undefined,
       bContainerPos: 0,
+      iContainerPos: 0,
       status: this.taskForm.get('status')?.value
     }
     

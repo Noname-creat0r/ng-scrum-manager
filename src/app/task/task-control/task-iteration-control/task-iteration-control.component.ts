@@ -24,15 +24,15 @@ export class TaskIterationControlComponent implements OnInit {
   ngOnInit() {
     this.store.select(selectIterations).subscribe(iterations => {
       this.iterations = iterations
-    }).unsubscribe()
+    })
     this.store.select(selectTask()).subscribe(task => {
       this.task = task!
-    }).unsubscribe()
+    })
   }
 
-  onIterationChosen(id: number) {
+  onIterationChosen(id: number | null) {
     const cpTask: TaskModel = { ...this.task }
-    cpTask.iterationId = id!
+    cpTask.iterationId = id
     this.store.dispatch(EditingTaskActions.initialized({ task: cpTask }))
   }
 }

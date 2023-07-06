@@ -26,7 +26,7 @@ export class TaskEffects {
       ofType(TaskSync.initialized),
       exhaustMap(action => this.taskService.syncTasks(action.positionsContanier)
         .pipe(
-          map(res => TaskSync.succeeded({ message: res.message })),
+          map(res => TaskSync.succeeded({ positionsContanier: action.positionsContanier, message: res.message })),
           catchError(error => of(TaskSync.failed({ error })))
         )
       )

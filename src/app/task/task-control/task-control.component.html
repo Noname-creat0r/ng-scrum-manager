@@ -84,12 +84,12 @@
                 && taskForm.get('iteration')?.touched,
               'is-valid': taskForm.get('iteration')?.valid
             }">
+            <option [value]="-1"> No iteration</option>
             <option 
               *ngFor="let iteration of iterations"
               [value]="iteration.id">
               {{iteration.title}}  
             </option>
-            <option value="null"> No iteration</option>
           </select>
           <label for="iterationInput">Iteration:</label> 
         </div> 

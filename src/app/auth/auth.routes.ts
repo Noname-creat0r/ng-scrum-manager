@@ -16,7 +16,9 @@ export const authRoutes = {
 }
 
 export const AUTH_ROUTES: Routes = [
-   { path: authPaths.signup, component: SignUpComponent },
+   { path: authPaths.signup, 
+      data: { animation: 'isLeft' },
+      component: SignUpComponent },
    { path: authPaths.logout, component: LogoutComponent },
    { path: '**', redirectTo: appPaths.notFound}
 ]
