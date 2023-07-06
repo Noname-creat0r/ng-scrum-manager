@@ -3,21 +3,26 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 
 import { IterationModel } from '../../iteration.model';
-import { IterationActions } from '../../store/iteration.actions';
+import { DeletingIterationActions, IterationActions } from '../../store/iteration.actions';
 import { IterationService } from '../../iteration.service';
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IterationControlComponent } from '../../iteration-control/iteration-control.component';
 
 @Component({
   selector: 'iteration-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IterationControlComponent],
   templateUrl: 'iteration-item.component.html' 
 })
 export class IterationItemComponent {
   @Input() iteration!: IterationModel
   @Input() selected!: Boolean
 
-  constructor(private readonly store: Store, private iterationService: IterationService) {}
+  constructor(
+    private readonly store: Store,
+    private iterationService: IterationService,
+    private modalService: NgbModal) {}
 
   onIterationClicked() {
     this.store.dispatch(IterationActions.selected({ iterationId: this.iteration.id }))
@@ -26,8 +31,16 @@ export class IterationItemComponent {
         subscribe.next()
         this.store.dispatch(IterationActions.loaded())
         subscribe.complete()
-      }, 1000)
+      }, 800)
     })
     obs.subscribe()
+  }
+
+  onEdit() {
+    this.modalService.open(IterationControlComponent)  
+  }
+  
+  onDelete() {
+    this.store.dispatch(DeletingIterationActions.initialized({ id: this.iteration.id}))
   }
 }

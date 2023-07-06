@@ -1,10 +1,24 @@
 <div 
   class="iteration-list__item"
-  [ngClass]="selected ? 'iteration-list__item--selected' : '' "
-  (click)="onIterationClicked()">
-    <span class="iteration-list__item__id"> {{iteration.id}} </span>
+  [ngClass]="selected ? 'iteration-list__item--selected' : '' ">
+
+  <span class="iteration-list__item__id"> {{iteration.id}} </span>
   
-  <div class="iteration-list__item__title" > 
-    {{iteration.title}} 
+  <div
+    (click)="onIterationClicked()"
+    class="iteration-list__item__title" > 
+    {{iteration.title}}   
   </div>
+
+  <div class="iteration-list__item__controls">
+    <img 
+      (click)="onEdit()"
+      class="navbar__icon--medium iteration-list__item__controls__edit"
+      src="../../../../assets/icons/pencil-square.svg"/>
+    <!-- <img -->
+    <!--   (click)="onDelete()" -->
+    <!--   class="navbar__icon--medium iteration-list__item__controls__delete" -->
+    <!--   src="../../../../assets/icons/trash.svg"/> -->
+  </div>
+
 </div>
