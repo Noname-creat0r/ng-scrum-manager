@@ -1,6 +1,6 @@
 # ScrumManager
 
-Created with NvChad and godlike tmux (mostly)... [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+My first project that was created with NvChad and godlike tmux (mostly)... [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
 ## Startup
 
