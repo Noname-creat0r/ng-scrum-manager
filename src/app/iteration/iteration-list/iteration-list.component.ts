@@ -11,7 +11,6 @@ import { IterationModel } from '../iteration.model';
 
 import { IterationItemComponent } from './iteration-item/iteration-item.component';
 import { TaskBoardComponent } from 'src/app/task/task-board/task-board.component';
-import { IterationService } from '../iteration.service';
 import { TaskActions } from 'src/app/task/store/task.actions';
 
 @Component({

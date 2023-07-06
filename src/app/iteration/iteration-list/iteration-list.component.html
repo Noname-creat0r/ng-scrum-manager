@@ -7,9 +7,14 @@
   </div>
   <task-board
     class="w-50"
+    *ngIf="(tasks$ | async)?.length; else emptyBoard"
     [mode]="'iteration'"
     [iterationId]="(iterationId$ | async)!"
     [tasksObs]="tasks$"
     [isLoading]="isLoadingIterations$ | async"/>
+
+  <ng-template #emptyBoard>
+    <h2 [ngClass]="">There are no tasks here yet...</h2>
+  </ng-template>
 </div>
 
