@@ -49,5 +49,6 @@ export class ProjectControlComponent implements OnInit {
     }
 
     this.store.dispatch(AddingProjectActions.initialized({ project: project }))
+    this.activeModal.close()
   }
 }

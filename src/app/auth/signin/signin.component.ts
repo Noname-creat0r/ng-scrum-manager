@@ -1,5 +1,5 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { SignInActions } from '../store/auth.actions';
 import { selectLoading } from '../store/auth.reducer';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-signin-modal',
@@ -21,9 +22,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class SignInComponent implements OnInit {
   signInForm!: FormGroup;
   authRoutes: typeof authRoutes;
+  
   isLoading$ = this.store.select(selectLoading);
 
-  constructor(public activeModal: NgbActiveModal, private readonly store: Store) { 
+  constructor(
+    public activeModal: NgbActiveModal,
+    private readonly store: Store) { 
     this.authRoutes = authRoutes
   }
 

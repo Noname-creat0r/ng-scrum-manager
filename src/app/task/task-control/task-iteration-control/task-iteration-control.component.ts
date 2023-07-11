@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { selectIterations } from 'src/app/iteration/store/iteration.reducer';
 import { IterationModel } from 'src/app/iteration/iteration.model';
@@ -19,7 +20,9 @@ export class TaskIterationControlComponent implements OnInit {
   iterations: Array<IterationModel> = []
   task!: TaskModel
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private activeModal: NgbActiveModal ) {}
 
   ngOnInit() {
     this.store.select(selectIterations).subscribe(iterations => {
@@ -34,5 +37,6 @@ export class TaskIterationControlComponent implements OnInit {
     const cpTask: TaskModel = { ...this.task }
     cpTask.iterationId = id
     this.store.dispatch(EditingTaskActions.initialized({ task: cpTask }))
+    this.activeModal.close()
   }
 }

@@ -61,7 +61,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   onAdd() {
-    
     if (this.mode === 'backlog') { 
       this.store.dispatch(TaskActions.deselected())
       this.modalService.open(TaskControlComponent)

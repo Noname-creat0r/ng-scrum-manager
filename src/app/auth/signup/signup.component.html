@@ -90,7 +90,8 @@
       </p>
       <hr class="my-4">
       <footer class="text-center">
-         <button 
+         <button
+          [disabled]="!signUpForm.valid"
           (click)="onSubmit()"
           type="submit"
           class="btn btn-outline-success btn-lg">Submit</button>

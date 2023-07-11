@@ -103,6 +103,8 @@ export class TaskControlComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(EditingTaskActions.initialized({ task: task}))
     }
+
+    this.activeModal.close()
   }
 
 }

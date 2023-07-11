@@ -8,6 +8,7 @@ import { selectIsAuthenticated } from 'src/app/auth/store/auth.reducer';
 
 import { SignInComponent } from '../../../auth/signin/signin.component';
 import { LogoutComponent } from 'src/app/auth/logout/logout.component';
+import { homePaths } from 'src/app/home/home.routes';
 
 @Component({
   selector: 'app-header',
@@ -39,6 +40,6 @@ export class HeaderComponent {
   }
 
   onLogotypeClick() {
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl(homePaths.base)
   }
 }

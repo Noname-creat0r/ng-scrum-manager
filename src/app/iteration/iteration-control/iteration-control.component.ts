@@ -67,5 +67,7 @@ export class IterationControlComponent implements OnInit {
     } else {
       this.store.dispatch(EditingIterationActions.initialized({ iteration: iteration}))
     }
+
+    this.activeModal.close()
   }
 }
