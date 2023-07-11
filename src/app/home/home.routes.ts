@@ -5,7 +5,7 @@ import { HomeComponent } from "../home/home.component";
 import { appPaths } from "../app.routes";
 
 export const homePaths = {
-  base: 'home',
+  base: '',
 }
 
 export const homeRoutes = { }
